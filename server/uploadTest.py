@@ -35,6 +35,32 @@ def reactVideo(video_id, access_token, reaction):
     else:
         print("Video "+ reaction +" failed.", response.status_code, response.text)
 
+def updateVideo(video_id, access_token, changes):
+    headers = {'Authorization' : 'bearer ' + access_token}
+    try:
+        response = requests.put('https://localhost:8000/api/videos/update/' + video_id, verify='server\security\certificate.pem', headers=headers, json=changes)
+    except Exception as e:
+        print(e)
+        return
+    if response.status_code == 200:
+        print("Video updated successfully!")
+        return response.json()
+    else:
+        print("Video update failed.", response.status_code, response.text)
+
+def getVideoDetails(video_id, access_token):
+    headers = {'Authorization' : 'bearer ' + access_token}
+    try:
+        response = requests.get('https://localhost:8000/api/videos/details/' + video_id, verify='server\security\certificate.pem', headers=headers)
+    except Exception as e:
+        print(e)
+        return
+    if response.status_code == 200:
+        print("Video details retrieved successfully!")
+        return response.json()
+    else:
+        print("Video details retrieval failed.", response.status_code, response.text)
+
 
 body = {
     "username" : "JohnDoe",
@@ -49,19 +75,25 @@ if response.status_code == 200:
     print(access_token)
     file_path = 'C:\\Users\\Saar\\Videos\\2022-06-27 15-38-35.mkv' #input("Enter the file path: ")
 
-    # data = upload_file(file_path, access_token)
-    # print(data)
-    video_id = '64b42c35079aea7028617aad'
+    data = upload_file(file_path, access_token)
+    print(data)
+    video_id = data['_id']
     print(video_id)
     reactVideo(video_id, access_token, "like")
+    print(getVideoDetails(video_id, access_token))
+    print("changing")
+    updateVideo(video_id, access_token, {"title" : "cool apex video", "description" : "a very cool apex video", "tags" : ["apex", "gaming"]})
+    print(getVideoDetails(video_id, access_token))
     print("sleeping")
     time.sleep(20)
     print("waking up")
     reactVideo(video_id, access_token, "dislike")
+    print(getVideoDetails(video_id, access_token))
     print("sleeping")
     time.sleep(20)
     print("waking up")
     reactVideo(video_id, access_token, "")
+    print(getVideoDetails(video_id, access_token))
 else:
     print("Login failed.", response.status_code, response.text)
 
