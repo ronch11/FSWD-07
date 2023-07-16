@@ -107,6 +107,48 @@ router.get('/watch/:videoId', async (req, res) => {
     }
 });
 
+router.put('/update/:videoId', async (req, res) => {
+    const {error, user} = await authCheck(req)
+    if(error) return res.status(403).json(error)
+    const userId = user._id
+    const bodySchema = Joi.object({
+        title : Joi.string(),
+        description : Joi.string(),
+        tags : Joi.array().items(Joi.string()),
+        visibility : Joi.string().valid('public', 'private', 'unlisted'),
+    })
+    const { error: bodyError, value } = bodySchema.validate(req.body)
+    if(bodyError) return res.status(400).json(bodyError.details[0].message)
+    const changes = value
+    try{
+        const video = await Videos.getVideoById(req.params.videoId)
+        if(!video) return res.status(404).json("Video not found")
+        if(video.userId !== userId) return res.status(403).json("You are not allowed to edit this video")
+        await Videos.updateVideo(req.params.videoId, changes)
+        res.status(200).json("Video updated")
+    }
+    catch (error){
+        console.log(error)
+        res.status(500).json()
+    }
+});
+
+router.get('/details/:videoId', async (req, res) => {
+    try
+    {
+        const video = await Videos.getVideoById(req.params.videoId)
+        if(!video) return res.status(404).json("Video not found")
+        video.reactions = {}
+        video.reactions.like = await Reactions.getReactionCount(req.params.videoId, 'like')
+        video.reactions.dislike = await Reactions.getReactionCount(req.params.videoId, 'dislike')
+        res.status(200).json(video)
+    }
+    catch (error){
+        console.log(error)
+        res.status(500).json()
+    }
+});
+
 router.post('/react/:videoId', async (req, res) => {
     const {error, user} = await authCheck(req)
     if(error) return res.status(403).json(error)
@@ -119,29 +161,12 @@ router.post('/react/:videoId', async (req, res) => {
     const { reaction } = value
     try{
       const existReaction = await Reactions.getReaction(req.params.videoId, userId)
-      await Reactions.react(req.params.videoId, userId, reaction)
-      if (existReaction && existReaction.reaction == reaction) return res.status(200).json()
-      if(reaction == 'like'){ 
-        if(existReaction && existReaction.reaction == 'dislike'){
-          await Videos.addAndRemoveLike(req.params.videoId)
-        }else{
-          await Videos.addLike(req.params.videoId)
-        }
-      }
-      else if(reaction == 'dislike'){
-        if(existReaction && existReaction.reaction == 'like'){
-          await Videos.addAndRemoveDislike(req.params.videoId)
-        }else{
-          await Videos.addDislike(req.params.videoId)
-        }
-      }else if(reaction == ''){
-        if(existReaction && existReaction.reaction == 'like')
-          await Videos.removeLike(req.params.videoId)
-        else if(existReaction && existReaction.reaction == 'dislike')
-          await Videos.removeDislike(req.params.videoId)
+      if(existReaction && reaction === '') {
         await Reactions.deleteReaction(req.params.videoId, userId)
+        return res.status(200).json('Reaction removed')
       }
-      res.status(200).json({reaction})
+      await Reactions.react(req.params.videoId, userId, reaction)
+      return res.status(200).json('Reaction updated')
     }
     catch(error){
         console.log(error)

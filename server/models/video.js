@@ -8,8 +8,6 @@ const defaultVideoDetails = {
     fileName : "video",
     fileType : "mp4",
     views : 0,
-    likes : 0,
-    dislikes : 0,
     visibility : "private",
 }
 
@@ -31,34 +29,13 @@ module.exports.getVideoById = async (videoId) => {
     return video
 }
 
+module.exports.updateVideo = async (videoId, changes) => {
+    return await videos.updateOne({_id : new ObjectId(videoId)}, {$set : changes})
+}
+
 module.exports.deleteVideo = async (videoId) => {
     return (await videos.deleteOne({_id : new ObjectId(videoId)})).deletedCount
 }
-
-module.exports.addLike = async (videoId) => {
-    return await videos.updateOne({_id : new ObjectId(videoId)}, {$inc : {likes : 1}})
-}
-
-module.exports.addDislike = async (videoId) => {
-    return await videos.updateOne({_id : new ObjectId(videoId)}, {$inc : {dislikes : 1}})
-}
-
-module.exports.removeLike = async (videoId) => {
-    return await videos.updateOne({_id : new ObjectId(videoId)}, {$inc : {likes : -1}})
-}
-
-module.exports.removeDislike = async (videoId) => {
-    return await videos.updateOne({_id : new ObjectId(videoId)}, {$inc : {dislikes : -1}})
-}
-
-module.exports.addAndRemoveLike = async (videoId) => {
-    return await videos.updateOne({_id : new ObjectId(videoId)}, {$inc : {likes : 1, dislikes : -1}})
-}
-
-module.exports.addAndRemoveDislike = async (videoId) => {
-    return await videos.updateOne({_id : new ObjectId(videoId)}, {$inc : {dislikes : 1, likes : -1}})
-}
-
 
 module.exports.addView = async (videoId) => {
     return await videos.updateOne({_id : new ObjectId(videoId)}, {$inc : {views : 1}})
