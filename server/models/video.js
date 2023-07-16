@@ -15,12 +15,34 @@ const defaultVideoDetails = {
 
 const videos = client.db("youbube").collection("videos");
 
-module.exports.createVideo = async (userId, fileType, originalName) => {
-    const video = {userId : userId, ...defaultVideoDetails, fileType : fileType, originalName : originalName}
+module.exports.createVideo = async (userId, fileType, fileName) => {
+    const video = {userId : userId, ...defaultVideoDetails, fileType : fileType, fileName : fileName}
     const status = await videos.insertOne(video)
     if (status.acknowledged){
         return video
     }else{
         return null
     }
+}
+
+module.exports.getVideoById = async (videoId) => {
+    let video = await videos.findOne({_id : new ObjectId(videoId)})
+    if (!video) return null
+    return video
+}
+
+module.exports.deleteVideo = async (videoId) => {
+    return (await videos.deleteOne({_id : new ObjectId(videoId)})).deletedCount
+}
+
+module.exports.addLike = async (videoId) => {
+    return await videos.updateOne({_id : new ObjectId(videoId)}, {$inc : {likes : 1}})
+}
+
+module.exports.addDislike = async (videoId) => {
+    return await videos.updateOne({_id : new ObjectId(videoId)}, {$inc : {dislikes : 1}})
+}
+
+module.exports.addView = async (videoId) => {
+    return await videos.updateOne({_id : new ObjectId(videoId)}, {$inc : {views : 1}})
 }

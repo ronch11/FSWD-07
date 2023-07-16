@@ -51,4 +51,48 @@ router.post('/upload', async (req, res) => {
     }
   });
 
+
+router.get('/watch/:videoId', async (req, res) => {
+    try
+    {
+        const video = await Videos.getVideoById(req.params.videoId)
+        if(!video) return res.status(404).json("Video not found")
+        const videoPath = __dirname + '/../uploads/' + video.userId + '/' + video._id + '.' + video.fileType; //adjust the path as needed
+        console.log(videoPath);
+        // stream the video
+        const stat = fs.statSync(videoPath)
+        const fileSize = stat.size
+        const range = req.headers.range
+        await Videos.addView(req.params.videoId)
+        if (range) {
+            const parts = range.replace(/bytes=/, "").split("-");
+            const start = parseInt(parts[0], 10);
+            const end = parts[1] ? parseInt(parts[1], 10) : fileSize - 1;
+            const chunkSize = (end - start) + 1;
+            const file = fs.createReadStream(videoPath, { start, end });
+        
+            const head = {
+              'Content-Range': `bytes ${start}-${end}/${fileSize}`,
+              'Accept-Ranges': 'bytes',
+              'Content-Length': chunkSize,
+              'Content-Type': `video/${video.fileType}`
+            };
+        
+            res.writeHead(206, head);
+            file.pipe(res);
+          } else {
+            const head = {
+              'Content-Length': fileSize,
+              'Content-Type': `video/${video.fileType}`
+            };
+        
+            res.writeHead(200, head);
+            fs.createReadStream(videoPath).pipe(res);
+        }
+    }
+    catch (error){
+        console.log(error)
+        res.status(500).json()
+    }
+});
 // TODO: check file name doesnt contain forbidden characters (e.g. /, '..', etc.)
