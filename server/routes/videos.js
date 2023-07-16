@@ -123,7 +123,7 @@ router.put('/update/:videoId', async (req, res) => {
     try{
         const video = await Videos.getVideoById(req.params.videoId)
         if(!video) return res.status(404).json("Video not found")
-        if(video.userId !== userId) return res.status(403).json("You are not allowed to edit this video")
+        if(video.userId.toString() !== userId.toString()) return res.status(403).json("You are not allowed to edit this video")
         await Videos.updateVideo(req.params.videoId, changes)
         res.status(200).json("Video updated")
     }
