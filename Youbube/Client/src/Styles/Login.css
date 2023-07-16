@@ -1,0 +1,126 @@
+
+h1{
+    /* Welcome back! */
+    position: absolute;
+    width: 315px;
+    height: 89px;
+    left: 127px;
+    top: 231px;
+    /*font-family: 'Assistant';*/
+    font-style: normal;
+    font-weight: 700;
+    font-size: 45px;
+    line-height: 59px;
+    display: flex;
+    align-items: center;
+    color: #000000;
+}
+
+h2{
+    /* Welcome back! Please enter your details. */
+    position: absolute;
+    width: 443px;
+    height: 50px;
+    left: 91px;
+    top: 308px;
+    /*font-family: 'Assistant';*/
+    font-style: normal;
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 29px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #9D9C9C;
+}
+
+.submit-button{
+    position: absolute;
+    width: 188px;
+    height: 60px;
+    left: 276px;
+    top: 730px;
+    background: #AD2069;
+    border-radius: 5px;
+}
+
+.login-label-user{
+    position: absolute;
+    width: 118px;
+    height: 50px;
+    left: 127px;
+    top: 392px;
+    /*font-family: 'Assistant';*/
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 31px;
+    display: flex;
+    align-items: center;
+    color: #000000;
+}
+
+.login-input-user{
+    /* Rectangle 1 */
+    box-sizing: border-box;
+    position: absolute;
+    width: 486px;
+    height: 65px;
+    left: 127px;
+    top: 442px;
+    background: #FFFFFF;
+    border: 1px solid #BABABA;
+    border-radius: 6px;
+}
+
+
+.login-label-pass{
+    position: absolute;
+    width: 118px;
+    height: 50px;
+    left: 133px;
+    top: 517px;
+    /*font-family: 'Assistant';*/
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 31px;
+    display: flex;
+    align-items: center;
+    color: #000000;
+}
+
+
+.login-input-pass{
+    box-sizing: border-box;
+    position: absolute;
+    width: 486px;
+    height: 65px;
+    left: 127px;
+    top: 567px;
+    background: #FFFFFF;
+    border: 1px solid #BABABA;
+    border-radius: 6px;
+}
+
+/*.background{*/
+/*    !* image 10 *!*/
+
+/*    position: absolute;*/
+/*    width: 1024px;*/
+/*    height: 771px;*/
+/*    left: 772px;*/
+/*    top: 1024px;*/
+
+
+/*}*/
+
+.logo{
+    position: absolute;
+    width: 498px;
+    height: 230px;
+    left: 909px;
+    top: 397px;}
+
+
+
