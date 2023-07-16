@@ -1,5 +1,5 @@
 const { ObjectId } = require('mongodb');
-const { uri, client } = require('../config/mongodbconfig')
+const { client } = require('../config/mongodbconfig')
 
 const defaultVideoDetails = {
     title : "video title",
@@ -45,4 +45,8 @@ module.exports.addDislike = async (videoId) => {
 
 module.exports.addView = async (videoId) => {
     return await videos.updateOne({_id : new ObjectId(videoId)}, {$inc : {views : 1}})
+}
+
+module.exports.getVideos = async (userId) => {
+    return await videos.find({userId : userId}).toArray()
 }

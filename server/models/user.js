@@ -1,5 +1,5 @@
 const { ObjectId } = require('mongodb');
-const { uri, client } = require('../config/mongodbconfig')
+const { client } = require('../config/mongodbconfig')
 
 const users = client.db("youbube").collection("users");
 

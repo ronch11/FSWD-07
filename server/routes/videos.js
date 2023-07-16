@@ -30,7 +30,7 @@ router.post('/upload', async (req, res) => {
         if(!newVideo) return res.status(500).json("Error creating video")
         // create a directory for the video
         const dirPath = __dirname + '/../uploads/' + userId;
-        fs.mkdirSync(dirPath);
+        fs.mkdirSync(dirPath, { recursive: true });
         const uploadPath = dirPath + '/' + newVideo._id + '.' + newVideo.fileType; //adjust the path as needed
         console.log(uploadPath);
         videoFile.mv(uploadPath, (err) => {
@@ -57,6 +57,7 @@ router.get('/watch/:videoId', async (req, res) => {
     {
         const video = await Videos.getVideoById(req.params.videoId)
         if(!video) return res.status(404).json("Video not found")
+        // TODO: check if user is allowed to watch the video, if not return 403
         const videoPath = __dirname + '/../uploads/' + video.userId + '/' + video._id + '.' + video.fileType; //adjust the path as needed
         console.log(videoPath);
         // stream the video
