@@ -6,3 +6,4 @@ jsonwebtoken
 dotenv
 joi
 https
+crypto

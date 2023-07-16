@@ -19,7 +19,11 @@ const app = express();
 
 const PORT = 8000;
 
+const crypto = require('crypto');
 
+const jwtSecretKey = crypto.randomBytes(64).toString('hex');
+
+console.log(jwtSecretKey);
 
 app.use(express.static(path.join(__dirname, 'dist')));
 app.use(express.json())
@@ -64,3 +68,19 @@ const server = https.createServer(credentials, app);
 server.listen(PORT, () => {
   console.log('Server is running on PORT:',PORT);
 });
+
+// client code
+// import axios from 'axios';
+
+// axios.interceptors.request.use((config) => {
+//   // Assuming your token is stored in localStorage
+//   const token = localStorage.getItem("token");
+
+//   if (token) {
+//     config.headers["Authorization"] = `Bearer ${token}`;
+//   }
+
+//   return config;
+// }, (error) => {
+//   return Promise.reject(error);
+// });
