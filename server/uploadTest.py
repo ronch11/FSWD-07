@@ -72,28 +72,27 @@ response = requests.post('https://localhost:8000/api/users/login', json=body, ve
 if response.status_code == 200:
     print("Login successful!")
     access_token = response.json()['accessToken']
-    print(access_token)
     file_path = 'C:\\Users\\Saar\\Videos\\2022-06-27 15-38-35.mkv' #input("Enter the file path: ")
 
     data = upload_file(file_path, access_token)
     print(data)
     video_id = data['_id']
-    print(video_id)
+    print('\n============================\n', getVideoDetails(video_id, access_token), '\n============================\n')
     reactVideo(video_id, access_token, "like")
-    print(getVideoDetails(video_id, access_token))
+    print('\n============================\n', getVideoDetails(video_id, access_token), '\n============================\n')
     print("changing")
     updateVideo(video_id, access_token, {"title" : "cool apex video", "description" : "a very cool apex video", "tags" : ["apex", "gaming"]})
-    print(getVideoDetails(video_id, access_token))
+    print('\n============================\n', getVideoDetails(video_id, access_token), '\n============================\n')
     print("sleeping")
     time.sleep(20)
     print("waking up")
     reactVideo(video_id, access_token, "dislike")
-    print(getVideoDetails(video_id, access_token))
+    print('\n============================\n', getVideoDetails(video_id, access_token), '\n============================\n')
     print("sleeping")
     time.sleep(20)
     print("waking up")
     reactVideo(video_id, access_token, "")
-    print(getVideoDetails(video_id, access_token))
+    print('\n============================\n', getVideoDetails(video_id, access_token), '\n============================\n')
 else:
     print("Login failed.", response.status_code, response.text)
 

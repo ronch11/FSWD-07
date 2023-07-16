@@ -5,7 +5,6 @@ module.exports = async (req) => {
     let error = null;
     let user = null;
     const accessToken = req.headers.authorization.split(' ').pop(); // Assuming the access token is included in the `Authorization` header
-    console.log(accessToken)
     if (!accessToken) {
         return { error : { message: 'Access token not provided' }, user };
     }

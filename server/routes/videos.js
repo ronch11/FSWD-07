@@ -3,6 +3,7 @@ const express = require('express');
 const Joi = require('joi')
 const router = express.Router()
 const Videos = require('../models/video')
+const Users = require('../models/user')
 const Reactions = require('../models/reaction')
 const jwt = require('jsonwebtoken');
 const fs = require('fs');
@@ -139,8 +140,18 @@ router.get('/details/:videoId', async (req, res) => {
         const video = await Videos.getVideoById(req.params.videoId)
         if(!video) return res.status(404).json("Video not found")
         video.reactions = {}
-        video.reactions.like = await Reactions.getReactionCount(req.params.videoId, 'like')
-        video.reactions.dislike = await Reactions.getReactionCount(req.params.videoId, 'dislike')
+        video.channel = {}
+        const channelPromise = Users.getUserById(video.userId).then((user) =>{
+          video.channel.name = user.username;
+        })
+        const likesPromise = Reactions.getReactionCount(req.params.videoId, 'like').then((count) => {
+          video.reactions.like = count;
+        });
+        const dislikesPromise = Reactions.getReactionCount(req.params.videoId, 'dislike').then((count) => {
+          video.reactions.dislike = count;
+        });
+        // promise all
+        await Promise.all([channelPromise, likesPromise, dislikesPromise])
         res.status(200).json(video)
     }
     catch (error){
