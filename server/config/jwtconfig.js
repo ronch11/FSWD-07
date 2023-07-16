@@ -1,0 +1,3 @@
+const secretKey = '6959b834acc7871e775cb1efd4d49cb33834634e4bf7ecea186562e832113e3f0d75ccb610d4f107649198de64372952963387294ded594df75ad6abc5014fce';
+
+module.exports.secretKey = secretKey;

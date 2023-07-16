@@ -1,0 +1,31 @@
+
+GET  http://localhost:5000/api/users/648a30266cb25dc0f064b5be
+
+###
+
+POST https://localhost:8000/api/users/CreateUser
+Content-Type: application/json
+
+{
+    "username" : "JohnDoe",
+    "firstName" : "Saar",
+    "lastName" : "Taler",
+    "password" : "123456",
+    "email" : "saarta03@gmail.com",
+    "phone" : "0541234567"
+}
+
+
+###
+
+POST https://localhost:8000/api/users/login
+Content-Type: application/json
+
+{
+    "username" : "JohnDoe",
+    "password" : "123456"
+}
+
+###
+
+DELETE http://localhost:5000/api/users/6491dd5f122ac8934ce43883

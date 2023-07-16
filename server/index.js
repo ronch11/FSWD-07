@@ -1,7 +1,7 @@
 // server.js
 const express = require('express');
 const fileUpload = require('express-fileupload');
-const jwt = require('jsonwebtoken');
+
 const path = require('path');
 const { existsSync } = require('fs');
 const { execSync } = require('child_process');
@@ -19,11 +19,11 @@ const app = express();
 
 const PORT = 8000;
 
-const crypto = require('crypto');
+// const crypto = require('crypto');
 
-const jwtSecretKey = crypto.randomBytes(64).toString('hex');
+// const jwtSecretKey = crypto.randomBytes(64).toString('hex');
 
-console.log(jwtSecretKey);
+// console.log(jwtSecretKey);
 
 app.use(express.static(path.join(__dirname, 'dist')));
 app.use(express.json())
@@ -44,18 +44,6 @@ const videosRouter = require('./routes/videos')
 //     console.log('Copying dist folder from client to server...');
 //     execSync('cp -r ../client/dist .');
 // }
-
-
-
-
-
-app.post('/login', (req, res) => {
-    // User verification goes here...
-    // If user is validated,
-    const user = { id: 123 }; // This usually would be a user object
-    const accessToken = jwt.sign(user, 'your_secret_key', { expiresIn: '1h' }); // Create JWT token with user data and secret key
-    res.json({ accessToken }); // Send the token to the client
-});
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'dist', 'index.html'));
