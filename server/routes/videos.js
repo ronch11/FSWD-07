@@ -3,25 +3,24 @@ const express = require('express');
 const Joi = require('joi')
 const router = express.Router()
 const Videos = require('../models/video')
+const Reactions = require('../models/reaction')
 const jwt = require('jsonwebtoken');
 const fs = require('fs');
+const authCheck = require('../authCheck')
 const jwtSecretKey = require('../config/jwtconfig').secretKey
 
 module.exports = router
 
 router.post('/upload', async (req, res) => {  
+    const {error, user} = await authCheck(req)
+    if(error) return res.status(403).json(error)
+    const userId = user._id
+
     if (!req.files || Object.keys(req.files).length === 0) {
       return res.status(400).send('No files were uploaded.');
     }
-    const accessToken = req.headers.authorization; // Assuming the access token is included in the `Authorization` header
-
-    if (!accessToken) {
-        return res.status(401).json({ message: 'Access token not provided' });
-    }
 
     try {
-        const decodedToken = jwt.verify(accessToken, jwtSecretKey);
-        const userId = decodedToken.id;
         console.log(userId)
         const videoFile = req.files.video;
 
@@ -38,7 +37,7 @@ router.post('/upload', async (req, res) => {
             return res.status(500).send(err);
           }
           console.log('File uploaded to ' + uploadPath);
-          res.send('File uploaded to ' + uploadPath);
+          res.status(200).json(newVideo)
         });
 
         // Perform database lookup or any further operations using the user ID
@@ -51,7 +50,7 @@ router.post('/upload', async (req, res) => {
     }
   });
 
-
+const viewsMap = {};
 router.get('/watch/:videoId', async (req, res) => {
     try
     {
@@ -60,11 +59,22 @@ router.get('/watch/:videoId', async (req, res) => {
         // TODO: check if user is allowed to watch the video, if not return 403
         const videoPath = __dirname + '/../uploads/' + video.userId + '/' + video._id + '.' + video.fileType; //adjust the path as needed
         console.log(videoPath);
+        
+
+        // take care of views
+        const userIp = req.ip; // get the user's IP address
+        const currentTime = new Date().getTime();
+        const lastViewTime = viewsMap[`${userIp}:${req.params.videoId}`] || 0; 
+
+        if (currentTime - lastViewTime > 1000 * 10) { // if difference is more than 10 second
+            await Videos.addView(req.params.videoId);
+            viewsMap[`${userIp}:${req.params.videoId}`] = currentTime; // jot down the time
+        }
+
         // stream the video
         const stat = fs.statSync(videoPath)
         const fileSize = stat.size
         const range = req.headers.range
-        await Videos.addView(req.params.videoId)
         if (range) {
             const parts = range.replace(/bytes=/, "").split("-");
             const start = parseInt(parts[0], 10);
@@ -92,6 +102,48 @@ router.get('/watch/:videoId', async (req, res) => {
         }
     }
     catch (error){
+        console.log(error)
+        res.status(500).json()
+    }
+});
+
+router.post('/react/:videoId', async (req, res) => {
+    const {error, user} = await authCheck(req)
+    if(error) return res.status(403).json(error)
+    const userId = user._id
+    const bodySchema = Joi.object({
+        reaction : Joi.string().valid('like', 'dislike', '').required()
+    })
+    const { error: bodyError, value } = bodySchema.validate(req.body)
+    if(bodyError) return res.status(400).json(bodyError.details[0].message)
+    const { reaction } = value
+    try{
+      const existReaction = await Reactions.getReaction(req.params.videoId, userId)
+      await Reactions.react(req.params.videoId, userId, reaction)
+      if (existReaction && existReaction.reaction == reaction) return res.status(200).json()
+      if(reaction == 'like'){ 
+        if(existReaction && existReaction.reaction == 'dislike'){
+          await Videos.addAndRemoveLike(req.params.videoId)
+        }else{
+          await Videos.addLike(req.params.videoId)
+        }
+      }
+      else if(reaction == 'dislike'){
+        if(existReaction && existReaction.reaction == 'like'){
+          await Videos.addAndRemoveDislike(req.params.videoId)
+        }else{
+          await Videos.addDislike(req.params.videoId)
+        }
+      }else if(reaction == ''){
+        if(existReaction && existReaction.reaction == 'like')
+          await Videos.removeLike(req.params.videoId)
+        else if(existReaction && existReaction.reaction == 'dislike')
+          await Videos.removeDislike(req.params.videoId)
+        await Reactions.deleteReaction(req.params.videoId, userId)
+      }
+      res.status(200).json({reaction})
+    }
+    catch(error){
         console.log(error)
         res.status(500).json()
     }

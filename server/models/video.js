@@ -10,7 +10,7 @@ const defaultVideoDetails = {
     views : 0,
     likes : 0,
     dislikes : 0,
-    state : "private",
+    visibility : "private",
 }
 
 const videos = client.db("youbube").collection("videos");
@@ -43,6 +43,23 @@ module.exports.addDislike = async (videoId) => {
     return await videos.updateOne({_id : new ObjectId(videoId)}, {$inc : {dislikes : 1}})
 }
 
+module.exports.removeLike = async (videoId) => {
+    return await videos.updateOne({_id : new ObjectId(videoId)}, {$inc : {likes : -1}})
+}
+
+module.exports.removeDislike = async (videoId) => {
+    return await videos.updateOne({_id : new ObjectId(videoId)}, {$inc : {dislikes : -1}})
+}
+
+module.exports.addAndRemoveLike = async (videoId) => {
+    return await videos.updateOne({_id : new ObjectId(videoId)}, {$inc : {likes : 1, dislikes : -1}})
+}
+
+module.exports.addAndRemoveDislike = async (videoId) => {
+    return await videos.updateOne({_id : new ObjectId(videoId)}, {$inc : {dislikes : 1, likes : -1}})
+}
+
+
 module.exports.addView = async (videoId) => {
     return await videos.updateOne({_id : new ObjectId(videoId)}, {$inc : {views : 1}})
 }
@@ -50,3 +67,4 @@ module.exports.addView = async (videoId) => {
 module.exports.getVideos = async (userId) => {
     return await videos.find({userId : userId}).toArray()
 }
+
