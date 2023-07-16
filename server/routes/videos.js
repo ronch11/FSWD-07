@@ -21,3 +21,5 @@ router.post('/upload', (req, res) => {
       res.send('File uploaded to ' + uploadPath);
     });
   });
+
+// TODO: check file name doesnt contain forbidden characters (e.g. /, '..', etc.)
