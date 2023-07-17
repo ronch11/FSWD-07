@@ -1,0 +1,30 @@
+.video-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 1em;
+  }
+  
+  .video-item {
+    flex-basis: 45%;
+    margin: 0.5em;
+    background-color: #eee;
+    padding: 1em;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  }
+  
+  .video-item h2 {
+    text-align: center;
+    color: #333;
+  }
+  
+  .video-item video {
+    width: 100%;
+    height: auto;
+  }
+
+  .video-item p {
+    color: #666;
+    font-size: 0.8em;
+    margin-bottom: 1em;
+  }

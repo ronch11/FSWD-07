@@ -32,9 +32,16 @@ router.post('/login', async (req, res) => {
     try{
         let user = await Users.getUser(username, password)
         if(!user) return res.status(404).json("User not found")
-        user = { id: user._id }; // This usually would be a user object
-        const accessToken = jwt.sign(user, jwtSecretKey, { expiresIn: '1h' }); // Create JWT token with user data and secret key
-        res.json({ accessToken }); // Send the token to the client
+        signed_user = { id: user._id }; // This usually would be a user object
+        const accessToken = jwt.sign(signed_user, jwtSecretKey, { expiresIn: '1h' }); // Create JWT token with user data and secret key
+        res.cookie('access_token', accessToken, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production', // Set to true in production
+            maxAge: 3600000, // 1 hour
+          });
+        // delete password from user object
+        delete user.password
+        res.status(200).json({ success: true, user, accessToken }); // Send the token to the client
     }
     catch(error){
         console.log(error)

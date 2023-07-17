@@ -35,15 +35,14 @@ app.use((req, res, next) => {
     next();
 });
 app.use(fileUpload());
-
 const usersRouter = require('./routes/users')
 const videosRouter = require('./routes/videos')
-// if (!existsSync(path.join(__dirname, 'dist'))) {
-//     console.log('Building client files...');
-//     execSync('cd ' + path.join(__dirname, '../client' + ' && npm run build'));
-//     console.log('Copying dist folder from client to server...');
-//     execSync('cp -r ../client/dist .');
-// }
+if (!existsSync(path.join(__dirname, 'dist'))) {
+    console.log('Building client files...');
+    execSync('cd ' + path.join(__dirname, '../client' + ' && npm run build'));
+    console.log('Copying dist folder from client to server...');
+    execSync('cp -r ../client/dist .');
+}
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'dist', 'index.html'));

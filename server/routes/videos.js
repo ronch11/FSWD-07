@@ -87,7 +87,8 @@ router.get('/watch/:videoId', async (req, res) => {
               'Content-Range': `bytes ${start}-${end}/${fileSize}`,
               'Accept-Ranges': 'bytes',
               'Content-Length': chunkSize,
-              'Content-Type': `video/${video.fileType}`
+              'Content-Type': `video/${video.fileType}`,
+              'Content-Disposition' : `inline; filename="${video.title}.${video.fileType}"`
             };
         
             res.writeHead(206, head);
@@ -95,12 +96,42 @@ router.get('/watch/:videoId', async (req, res) => {
           } else {
             const head = {
               'Content-Length': fileSize,
-              'Content-Type': `video/${video.fileType}`
+              'Content-Disposition' : `inline; filename="${video.title}.${video.fileType}"`,
+              'Content-Type' : `video/${video.fileType}`
             };
         
             res.writeHead(200, head);
             fs.createReadStream(videoPath).pipe(res);
         }
+    }
+    catch (error){
+        console.log(error)
+        res.status(500).json()
+    }
+});
+
+router.get('/preview/:videoId', async (req, res) => {
+    try
+    {
+      const video = await Videos.getVideoById(req.params.videoId)
+      if(!video) return res.status(404).json("Video not found")
+      const videoPath = __dirname + '/../uploads/' + video.userId + '/' + video._id + '.' + video.fileType; //adjust the path as needed
+      console.log(videoPath);
+      const stat = fs.statSync(videoPath)
+      const fileSize = stat.size
+      
+      const start = 0;
+      const end = 40000000;
+      const file = fs.createReadStream(videoPath, { start, end });
+  
+      res.setHeader('Content-Type', 'video/mp4');
+      res.setHeader('Content-Disposition', `inline; filename="${video.title}.${video.fileType}"`);
+      // res.setHeader('Content-Range', `bytes ${start}-${end}/${fs.statSync(videoPath).size}`);
+      // res.setHeader('Accept-Ranges', 'bytes');
+
+      // Stream the partial content to the response
+      file.pipe(res);
+          
     }
     catch (error){
         console.log(error)
@@ -184,4 +215,16 @@ router.post('/react/:videoId', async (req, res) => {
         res.status(500).json()
     }
 });
+
+router.get('/:userId', async (req, res) => {
+    try
+    {
+        const videos = await Videos.getVideos(req.params.userId)
+        res.status(200).json(videos)
+    }
+    catch (error){
+        console.log(error)
+        res.status(500).json()
+    }
+  });
 // TODO: check file name doesnt contain forbidden characters (e.g. /, '..', etc.)

@@ -1,8 +1,8 @@
-import Login from './Pages/Login/Login'
+import Login from './Components/Login'
 import { useUserUpdate } from './UserContext'
 import { useState, useEffect } from 'react'
 import {BrowserRouter, Route, Routes, NavLink, Navigate, useNavigate } from 'react-router-dom'
-
+import Profile from './Components/Profile'
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false)
@@ -39,7 +39,7 @@ function App() {
                             <NavLink to="/Posts" activeClassName="active">Posts</NavLink>
                         </li>
                         <li>
-                            <NavLink to="/UserInfo" activeClassName="active">Info</NavLink>
+                            <NavLink to="/Profile" activeClassName="active">Profile</NavLink>
                         </li>
                         <li style={{ marginLeft: "auto" }}>
                             {userName}
@@ -54,9 +54,10 @@ function App() {
         <BrowserRouter>
             {getNav()}
             <Routes>
-                <Route exact path="/" element={ isLoggedIn ? <Navigate to="/UserInfo" /> : <Navigate to="/Login" />}>
+                <Route exact path="/" element={ isLoggedIn ? <Navigate to="/Profile" /> : <Navigate to="/Login" />}>
 
                 </Route>
+                <Route path="/Profile" element={<Profile />} />
                 <Route path="/Login" element={<Login onLogIn={handleSubmit} isLoggedIn={isLoggedIn} />} />
             </Routes>
         </BrowserRouter>

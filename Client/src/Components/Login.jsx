@@ -1,9 +1,9 @@
 import { useState, useEffect, useContext } from 'react'
-import { useUserUpdate } from '../../UserContext.jsx'
+import { useUserUpdate } from '../UserContext.jsx'
 import { useNavigate } from 'react-router-dom'
-import '../../Styles/Login.css';
-import ApiContext from '../../ApiContext.jsx';
-import TopNav from "../../Components/TopNav/TopNav.jsx";
+import '../Styles/Login.css';
+import ApiContext from '../ApiContext.jsx';
+import TopNav from "./TopNav/TopNav.jsx";
 
 // import background from '../../background/background.jpg';
 // import tech19 from '../../background/tech19.png';
@@ -15,7 +15,7 @@ const Login = ({onLogIn, isLoggedIn}) => {
   const api = useContext(ApiContext);
   async function getUser(username, password) {
     return api.post("/users/login", {
-      username: username ,
+      username: username,
       password: password
     })
   }
@@ -49,9 +49,13 @@ const Login = ({onLogIn, isLoggedIn}) => {
       if (response.status === 200) {
         console.log(response.data);
         alert("Login successful");
-        const user = response.data;
-        user.password = password;
-        navigate('/UserInfo');
+        console.log(response)
+        const user = response.data.user;
+        // get cookie from response
+        const cookie = response.data.accessToken;
+        // set cookie
+        localStorage.setItem('access_token', cookie);
+        navigate('/Profile');
         userUpdatedFunction(user);
         onLogIn(user);
       }
@@ -96,11 +100,11 @@ const Login = ({onLogIn, isLoggedIn}) => {
                 onChange={(e) => setPassword(e.target.value)}
             />
             <p className='login-error'>{loginError}</p>
-            <button className="submit-button" type="submit" onClick={handleLogin}>Login</button>
-            <button className="submit-button" type="button" onClick={handleSubmitRegister} >Register</button>
+            <button className="submit-button" type="button" onClick={handleLogin}>Login</button>
+            {/* <button className="submit-button" type="button" onClick={handleSubmitRegister} >Register</button> */}
           </form>
         </div>
-        <video src={'https://localhost:8000/api/videos/watch/64b3ffbe8c8aff91c54ad1f5'} controls autoPlay/>
+        {/* <video src={'https://localhost:8000/api/videos/watch/64b3ffbe8c8aff91c54ad1f5'} controls autoPlay/> */}
         {/*<img className="background" src={background} alt="Image 1" />*/}
         {/*<img className="logo" src={tech19} alt="Image 2" />*/}
       </main>

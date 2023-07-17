@@ -6,10 +6,10 @@ import { ApiProvider } from './ApiContext'
 import UserProvider from './UserContext'
 ReactDOM.createRoot(document.getElementById("root")).render(
     <React.StrictMode>
-        <UserProvider>
-            <ApiProvider>
-                <App />
-            </ApiProvider>
-        </UserProvider>
+            <UserProvider>
+                <ApiProvider>
+                    <App />
+                </ApiProvider>
+            </UserProvider>
     </React.StrictMode>
 );

@@ -42,6 +42,7 @@ module.exports.addView = async (videoId) => {
 }
 
 module.exports.getVideos = async (userId) => {
-    return await videos.find({userId : userId}).toArray()
+    console.log(userId)
+    return await videos.find({userId : new ObjectId(userId)}).toArray()
 }
 
