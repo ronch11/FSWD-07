@@ -80,8 +80,12 @@ const viewsMap = {};
 router.get('/watch/:videoId', async (req, res) => {
     try
     {
+        const {error, user} = await authCheck(req, false);
+        if(error) return res.status(403).json(error);
         const video = await Videos.getVideoById(req.params.videoId)
         if(!video) return res.status(404).json("Video not found")
+        if(video.visibility === 'private' && (!user || video.userId.toString() !== user._id.toString())) return res.status(403).json("You are not allowed to watch this video")
+        await Users.watchVideo(video.userId, video._id, new Date())
         // TODO: check if user is allowed to watch the video, if not return 403
         const videoPath = __dirname + '/../uploads/' + video.userId + '/' + video._id + '.' + video.fileType; //adjust the path as needed
         console.log(videoPath);
@@ -276,6 +280,17 @@ router.get('/thumb/:videoId', async (req, res) => {
             fs.createReadStream(thumbPath).pipe(res);
           }
         });
+    }
+    catch (error){
+        console.log(error)
+        res.status(500).json()
+    }
+});
+
+router.get('/recommendations', async (req, res) => {
+    try
+    {
+      
     }
     catch (error){
         console.log(error)
