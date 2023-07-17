@@ -26,6 +26,7 @@ const PORT = 8000;
 // console.log(jwtSecretKey);
 
 app.use(express.static(path.join(__dirname, 'dist')));
+app.use(express.static('uploads'));
 app.use(express.json())
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173'); // Replace with your client application's URL

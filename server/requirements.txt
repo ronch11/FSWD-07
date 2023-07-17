@@ -7,3 +7,4 @@ dotenv
 joi
 https
 crypto
+fluent-ffmpeg

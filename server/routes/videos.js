@@ -8,9 +8,29 @@ const Reactions = require('../models/reaction')
 const jwt = require('jsonwebtoken');
 const fs = require('fs');
 const authCheck = require('../authCheck')
-const jwtSecretKey = require('../config/jwtconfig').secretKey
+const ffmpeg = require('fluent-ffmpeg');
+const path = require('path');
+// ffmpeg.setFfmpegPath(ffmpegPath);
+
 
 module.exports = router
+
+function getMediaFilePath(userId, videoId, fileType) {
+    return __dirname + '/../uploads/' + userId + '/' + videoId + '.' + fileType;
+}
+
+async function generateThumbnail(videoPath, thumbnailPath) {
+  const folder =  path.dirname(thumbnailPath);
+  const filename = path.basename(thumbnailPath);
+  return ffmpeg(videoPath)
+      .thumbnail({
+          timestamps: ['50%'],
+          folder,
+          filename,
+          size: '320x240',
+      });
+}
+
 
 router.post('/upload', async (req, res) => {  
     const {error, user} = await authCheck(req)
@@ -39,6 +59,11 @@ router.post('/upload', async (req, res) => {
           }
           console.log('File uploaded to ' + uploadPath);
           res.status(200).json(newVideo)
+          // generate thumbnail
+          const thumbPath = dirPath + '/' + newVideo._id + '.png';
+          generateThumbnail(uploadPath, thumbPath)
+          .then(() => console.log('Thumnail generated successfully'))
+          .catch((err) => console.error(err));
         });
 
         // Perform database lookup or any further operations using the user ID
@@ -227,4 +252,35 @@ router.get('/:userId', async (req, res) => {
         res.status(500).json()
     }
   });
+
+router.get('/thumb/:videoId', async (req, res) => {
+    try
+    {
+        console.log(req.params.videoId)
+        const video = await Videos.getVideoById(req.params.videoId)
+        if(!video) return res.status(404).json("Video not found")
+        console.log(video)
+        const thumbPath = getMediaFilePath(video.userId, video._id, 'png');
+        console.log(thumbPath)
+        // res.writeHead(200, head);
+        fs.access(thumbPath, fs.constants.F_OK, (err) => {
+          if (err) {
+            res.status(404).send('File not found');
+          } else {
+            const stat = fs.statSync(thumbPath)
+            const fileSize = stat.size
+            res.setHeader('Content-Type', 'image/png');
+            res.setHeader('Content-Disposition', `inline; filename="${video.title}.png"`);
+            res.setHeader('Content-Length', fileSize);
+            // res.sendFile(thumbPath);
+            fs.createReadStream(thumbPath).pipe(res);
+          }
+        });
+    }
+    catch (error){
+        console.log(error)
+        res.status(500).json()
+    }
+});
+
 // TODO: check file name doesnt contain forbidden characters (e.g. /, '..', etc.)

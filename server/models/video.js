@@ -1,4 +1,5 @@
 const { ObjectId } = require('mongodb');
+const { BSONError } = require('bson');
 const { client } = require('../config/mongodbconfig')
 
 const defaultVideoDetails = {
@@ -24,9 +25,18 @@ module.exports.createVideo = async (userId, fileType, fileName) => {
 }
 
 module.exports.getVideoById = async (videoId) => {
-    let video = await videos.findOne({_id : new ObjectId(videoId)})
-    if (!video) return null
-    return video
+    try{
+        let video = await videos.findOne({_id : new ObjectId(videoId)})
+        if (!video) return null
+        return video
+    }
+    catch(err){
+        if (err instanceof BSONError){
+            return null
+        }
+        throw err;
+    }
+    
 }
 
 module.exports.updateVideo = async (videoId, changes) => {
@@ -43,6 +53,15 @@ module.exports.addView = async (videoId) => {
 
 module.exports.getVideos = async (userId) => {
     console.log(userId)
-    return await videos.find({userId : new ObjectId(userId)}).toArray()
+    try{
+        return await videos.find({userId : new ObjectId(userId)}).toArray()
+
+    }catch(err){
+        if (err instanceof BSONError){
+            return [];
+        }
+        throw err;
+
+    }
 }
 
