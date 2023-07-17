@@ -3,8 +3,7 @@ const { BSONError } = require('bson');
 const { client } = require('../config/mongodbconfig')
 
 const users = client.db("youbube").collection("users");
-
-
+const history = client.db("youbube").collection("history");
 
 
 module.exports.getUser = async (username, password) => {
@@ -32,7 +31,7 @@ module.exports.getUserById = async (userId) => {
 }
 
 module.exports.createUser = async (username, password, firstName, lastName, email, phone, isAdmin=false) => {
-    const user = {username, firstName, lastName, password, email, phone, isAdmin}
+    const user = {username, firstName, lastName, password, email, phone, isAdmin, likeTags : {}}
     const status = await users.insertOne(user)
     if (status.acknowledged){
         delete user.password
@@ -54,4 +53,43 @@ module.exports.deleteUser = async (userId) => {
     }
 }
 
+module.exports.watchVideo = async (userId, videoId, date) => {
+    const status = await history.insertOne({userId : new ObjectId(userId), videoId : new ObjectId(videoId), date : date})
+    if (status.acknowledged){
+        return true
+    }else{
+        return false
+    }
+}
+
+module.exports.getHistory = async (userId) => {
+    try{
+        return await history.find({userId : new ObjectId(userId)}).toArray()
+    }catch(err){
+        if (err instanceof BSONError){
+            return [];
+        }
+        throw err;
+    }
+}
+
+module.exports.likeTags = async (userId, tags) => {
+    // increment tags in user
+    let user = await users.findOne({_id : new ObjectId(userId)})
+    console.log(user)
+    if (!user) return false
+    if(user.likeTags === undefined) user.likeTags = {}
+    console.log(tags)
+    for (let tag of tags){
+        if (user.likeTags[tag]){
+            user.likeTags[tag]++
+        }else{
+            user.likeTags[tag] = 1
+        }
+    }
+    console.log(user.likeTags)
+    const status = await users.updateOne({_id : new ObjectId(userId)}, {$set : {likeTags : user.likeTags}})
+    if (!status.acknowledged) return false
+    return true
+}
 

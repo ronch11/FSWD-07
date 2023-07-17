@@ -51,7 +51,7 @@ module.exports.addView = async (videoId) => {
     return await videos.updateOne({_id : new ObjectId(videoId)}, {$inc : {views : 1}})
 }
 
-module.exports.getVideos = async (userId) => {
+module.exports.getVideosBy = async (userId) => {
     console.log(userId)
     try{
         return await videos.find({userId : new ObjectId(userId)}).toArray()
@@ -63,5 +63,36 @@ module.exports.getVideos = async (userId) => {
         throw err;
 
     }
+}
+
+module.exports.getMostViewed = async (amount=10, onlyPublic=true) => {
+    if (onlyPublic){
+        return await videos.find({visibility : "public"}).sort({views : -1}).limit(amount).toArray()
+    }else{
+        return await videos.find().sort({views : -1}).limit(amount).toArray()
+    }
+}
+
+module.exports.getVideosForTags = async (tags, amount=10, onlyPublic=true) => {
+    const searchTags = Object.keys(tags);
+    const findParams = {
+        tags: { $in: searchTags }
+    };
+
+    if (onlyPublic) {
+        findParams.visibility = 'public';
+    }
+    
+    // Query the videos collection
+    let videos = await videos.find(findParams).toArray();
+
+    // Sort by user likes
+    videos.sort((a, b) => {
+        let aScore = a.tags.reduce((total, tag) => { return total + (tags[tag] || 0) }, 0);
+        let bScore = b.tags.reduce((total, tag) => { return total + (tags[tag] || 0) }, 0);
+        return bScore - aScore;
+    });
+
+    return videos.slice(0, amount);
 }
 

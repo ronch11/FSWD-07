@@ -229,7 +229,9 @@ router.post('/react/:videoId', async (req, res) => {
     })
     const { error: bodyError, value } = bodySchema.validate(req.body)
     if(bodyError) return res.status(400).json(bodyError.details[0].message)
-    const { reaction } = value
+    const { reaction } = value;
+    const video = await Videos.getVideoById(req.params.videoId);
+    if (reaction === 'like') Users.likeTags(userId, video.tags);
     try{
       const existReaction = await Reactions.getReaction(req.params.videoId, userId)
       if(existReaction && reaction === '') {
@@ -245,10 +247,10 @@ router.post('/react/:videoId', async (req, res) => {
     }
 });
 
-router.get('/:userId', async (req, res) => {
+router.get('/postedBy/:userId', async (req, res) => {
     try
     {
-        const videos = await Videos.getVideos(req.params.userId)
+        const videos = await Videos.getVideosBy(req.params.userId)
         res.status(200).json(videos)
     }
     catch (error){
@@ -290,10 +292,27 @@ router.get('/thumb/:videoId', async (req, res) => {
 router.get('/recommendations', async (req, res) => {
     try
     {
-      
+      const vidsAmount = 20;
+      const {error, user} = await authCheck(req, false);
+      console.log(user)
+      if(error) return res.status(403).json(error);
+      if(user){
+        const videos = Videos.getVideosForTags(user.likedTags, vidsAmount)
+        if (videos.length < vidsAmount) {
+          const moreVideos = Videos.getMostViewed(vidsAmount - videos.length, onlyPublic=true)
+          videos.push(...moreVideos)
+        }
+        console.log(videos)
+        res.status(200).json(videos)
+      }else{
+        // get most viewed videos
+        const videos = await Videos.getMostViewed(vidsAmount, onlyPublic=false)
+        console.log(videos)
+        res.status(200).json(videos)
+      }
     }
     catch (error){
-        console.log(error)
+        console.log('abc',error)
         res.status(500).json()
     }
 });
