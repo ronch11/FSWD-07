@@ -5,6 +5,7 @@ const Joi = require('joi')
 const router = express.Router()
 const jwt = require('jsonwebtoken');
 const jwtSecretKey = require('../config/jwtconfig').secretKey
+const authCheck = require('../authCheck')
 // const accessToken = req.headers.authorization; // Assuming the access token is included in the `Authorization` header
 
 //   if (!accessToken) {
@@ -50,10 +51,11 @@ router.post('/login', async (req, res) => {
     
 });
 
-router.get('/:userId', async (req, res) => {
+router.get('/user', async (req, res) => {
     try
     {
-        const user = await Users.getUserById(req.params.userId)
+        const { error, user } = await authCheck(req)
+        if(error) return res.status(401).json(error)
         if(!user) return res.status(404).json("User not found")
         res.status(200).json(user)
     }
