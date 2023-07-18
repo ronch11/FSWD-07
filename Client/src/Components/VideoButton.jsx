@@ -12,8 +12,9 @@ function VideoButton({video, baseurl}) {
     return (
         <div>
         <button onClick={handleClick}>
-                        <h1>{video.title}</h1>
+                        <p>{video.title}</p>
                         <img width={320} src={baseurl + '/videos/thumb/' + video._id} controls></img>
+                        <p>{video.userId} | {video.views} | {video.date} </p>
                     </button>
         </div>
     )
