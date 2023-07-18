@@ -84,7 +84,7 @@ router.get('/watch/:videoId', async (req, res) => {
         if(error) return res.status(403).json(error);
         const video = await Videos.getVideoById(req.params.videoId)
         if(!video) return res.status(404).json("Video not found")
-        if(video.visibility === 'private' && (!user || video.userId.toString() !== user._id.toString())) return res.status(403).json("You are not allowed to watch this video")
+        if(video.visibility === 'private' && (!user || video.userId.toString() !== user._id.toString())) return res.status(401).json("You are not allowed to watch this video")
         await Users.watchVideo(video.userId, video._id, new Date())
         // TODO: check if user is allowed to watch the video, if not return 403
         const videoPath = __dirname + '/../uploads/' + video.userId + '/' + video._id + '.' + video.fileType; //adjust the path as needed
@@ -170,7 +170,7 @@ router.get('/preview/:videoId', async (req, res) => {
 
 router.put('/update/:videoId', async (req, res) => {
     const {error, user} = await authCheck(req)
-    if(error) return res.status(403).json(error)
+    if(error) return res.status(401).json(error)
     const userId = user._id
     const bodySchema = Joi.object({
         title : Joi.string(),
@@ -183,6 +183,7 @@ router.put('/update/:videoId', async (req, res) => {
     const changes = value
     try{
         const video = await Videos.getVideoById(req.params.videoId)
+        console.log(video)
         if(!video) return res.status(404).json("Video not found")
         if(video.userId.toString() !== userId.toString()) return res.status(403).json("You are not allowed to edit this video")
         await Videos.updateVideo(req.params.videoId, changes)
@@ -197,8 +198,14 @@ router.put('/update/:videoId', async (req, res) => {
 router.get('/details/:videoId', async (req, res) => {
     try
     {
+        const {error, user} = await authCheck(req, false);
+        if (error) return res.status(403).json(error);
         const video = await Videos.getVideoById(req.params.videoId)
         if(!video) return res.status(404).json("Video not found")
+        if (user) {
+          const reaction = await Reactions.getReaction(req.params.videoId, user._id)
+          if (reaction) video.userReaction = reaction.reaction
+        }
         video.reactions = {}
         video.channel = {}
         const channelPromise = Users.getUserById(video.userId).then((user) =>{
@@ -222,7 +229,7 @@ router.get('/details/:videoId', async (req, res) => {
 
 router.post('/react/:videoId', async (req, res) => {
     const {error, user} = await authCheck(req)
-    if(error) return res.status(403).json(error)
+    if(error) return res.status(401).json(error)
     const userId = user._id
     const bodySchema = Joi.object({
         reaction : Joi.string().valid('like', 'dislike', '').required()
@@ -239,7 +246,17 @@ router.post('/react/:videoId', async (req, res) => {
         return res.status(200).json('Reaction removed')
       }
       await Reactions.react(req.params.videoId, userId, reaction)
-      return res.status(200).json('Reaction updated')
+      // get new like count and dislike count
+      let likes = 0, dislikes = 0;
+      // const likesPromise = Reactions.getReactionCount(req.params.videoId, 'like').then((count) => {
+      //   likes = count;
+      // });
+      // const dislikesPromise = Reactions.getReactionCount(req.params.videoId, 'dislike').then((count) => {
+      //   dislikes = count;
+      // });
+      // await Promise.all([likesPromise, dislikesPromise])
+
+      return res.status(200).json({message: 'Reaction updated', like: likes, dislike : dislikes })
     }
     catch(error){
         console.log(error)
@@ -250,7 +267,13 @@ router.post('/react/:videoId', async (req, res) => {
 router.get('/postedBy/:userId', async (req, res) => {
     try
     {
-        const videos = await Videos.getVideosBy(req.params.userId)
+        const {error, user} = await authCheck(req, false);
+        if(error) return res.status(403).json(error);
+        let videos = await Videos.getVideosBy(req.params.userId)
+        if(!user || user._id.toString() !== req.params.userId.toString()){
+          // filter private videos
+          videos = videos.filter((video) => video.visibility === 'public')
+        }
         res.status(200).json(videos)
     }
     catch (error){
@@ -315,6 +338,43 @@ router.get('/recommendations', async (req, res) => {
         console.log(error)
         res.status(500).json()
     }
+});
+
+router.delete('/delete/:videoId', async (req, res) => {
+    const {error, user} = await authCheck(req)
+    if(error && !user) return res.status(401).json(error)
+    const userId = user._id
+    try{
+      const video = await Videos.getVideoById(req.params.videoId)
+      if(!video) return res.status(404).json("Video not found")
+      if(video.userId.toString() !== userId.toString()) return res.status(401).json("You are not allowed to delete this video")
+      const deletedCount = await Videos.deleteVideo(req.params.videoId);
+      if (deletedCount === 0) return res.status(500).json("Error deleting video");
+      await Reactions.deleteReactions(req.params.videoId);
+      const videoPath = getMediaFilePath(video.userId, video._id, video.fileType);
+      // delete video file
+      fs.unlink(videoPath, (err) => {
+        if (err) {
+          console.error(err)
+          return
+        }
+        const thumbPath = getMediaFilePath(video.userId, video._id, 'png');
+        // delete thumbnail file
+        fs.unlink(thumbPath, (err) => {
+          if (err) {
+            console.error(err);
+            return;
+          }
+          return res.status(200).json("Video deleted")
+        //file removed
+      }
+      )
+    });
+  }
+  catch (error){
+      console.log(error)
+      res.status(500).json()
+  }
 });
 
 // TODO: check file name doesnt contain forbidden characters (e.g. /, '..', etc.)
