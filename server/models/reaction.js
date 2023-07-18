@@ -35,3 +35,8 @@ module.exports.deleteReaction = async (videoId, userId) => {
     const results = await reactions.deleteOne({ videoId : new ObjectId(videoId), userId : userId });
     return results.deletedCount;
 }
+
+module.exports.deleteReactions = async (videoId) => {
+    const results = await reactions.deleteMany({ videoId : new ObjectId(videoId) });
+    return results.deletedCount;
+}
