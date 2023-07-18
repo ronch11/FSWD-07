@@ -5,7 +5,8 @@ import {BrowserRouter, Route, Routes, NavLink, Navigate } from 'react-router-dom
 import Profile from './Components/Profile'
 import Home from './Components/Home'
 import Video from './Components/Video'
-
+import NotFound404 from './Components/NotFound'
+import EditVideo from './Components/EditVideo'
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false)
     const [userName, setUserName] = useState('')
@@ -23,6 +24,10 @@ function App() {
 
     const handleSubmit = (user) => {
         setIsLoggedIn(user !== undefined);
+        if(user === undefined){
+            // set access token to null
+            localStorage.setItem('access_token', null);
+        }
         setUserName(user?.username ?? '');
         userUpdated(user);
     }
@@ -62,7 +67,8 @@ function App() {
                 <Route path="/Home" element={<Home />} />
                 
                 <Route path="/video/:videoid" element={<Video />}/>
-                
+                <Route path="/editvideo/:videoid" element={<EditVideo />}/>
+                <Route path="/404" element={<NotFound404 />} />
                 <Route path="/Profile" element={<Profile />} />
                 <Route path="/Login" element={<Login onLogIn={handleSubmit} isLoggedIn={isLoggedIn} />} />
             </Routes>

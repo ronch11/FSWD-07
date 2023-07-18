@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import ApiContext from "../ApiContext";
-const VideoUploader = () => {
+const VideoUploader = ({getVideos}) => {
   // get access token from local storage
   const access_token = localStorage.getItem('access_token');
   // create axios instance
@@ -18,6 +18,7 @@ const VideoUploader = () => {
     })
       .then(response => {
         console.log(response.data);
+        getVideos();
       })
       .catch(error => {
         console.error(error);

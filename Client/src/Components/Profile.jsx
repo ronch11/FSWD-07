@@ -7,19 +7,29 @@ import ApiContext from "../ApiContext";
 
 
 const Profile = () => {
-    
+    const navigate = useNavigate();
     const user = useUser();
+    if (!user || Object.keys(user).length === 0) navigate('/Login');
     const api = useContext(ApiContext);
     const [videos, setVideos] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    
+    const getVideos = async () => {
+        api.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('access_token');
+        return api.get(`/videos/postedBy/${user._id}`)
+        .then(response => {console.log(response.data); setVideos(response.data)})
+        .catch(err => console.error(err));
+    }
+    useEffect(() => {
+        getVideos();
+    }, []);
+
     return (
         <div>
             <h1>Profile</h1>
             <h2>{user.username}</h2>
-            <VideoComponent />
-            <VideoUploader />
+            <VideoComponent videos={videos} getVideos={getVideos} />
+            <VideoUploader getVideos={getVideos}/>
         </div>
     );
 }
