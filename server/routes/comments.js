@@ -11,7 +11,7 @@ module.exports = router
 router.get('/:videoId', async (req, res) => {
     try{
         const { error, user } = await authCheck(req, false)
-        const video = await Videos.getVideo(req.params.videoId);
+        const video = await Videos.getVideoById(req.params.videoId);
         if(!video) return res.status(404).json("Video not found")
         if(video.visibility == 'private' && (!user || user._id.toString() !== video.userId.toString())) return res.status(401).json("Not authorized")
         const comments = await Comments.getComments(req.params.videoId)
@@ -27,7 +27,7 @@ router.post('/:videoId', async (req, res) => {
     try{
         const { error, user } = await authCheck(req)
         if(error) return res.status(401).json(error)
-        const video = await Videos.getVideo(req.params.videoId);
+        const video = await Videos.getVideoById(req.params.videoId);
         if(!video) return res.status(404).json("Video not found")
         if(video.visibility == 'private' && (!user || user._id.toString() !== video.userId.toString())) return res.status(401).json("Not authorized")
         const bodySchema = Joi.object({
