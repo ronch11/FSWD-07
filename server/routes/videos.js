@@ -207,18 +207,25 @@ router.get('/details/:videoId', async (req, res) => {
           if (reaction) video.userReaction = reaction.reaction
         }
         video.reactions = {}
+        const promises = []
+        if (user){
+          promises.push(Reactions.getReaction(req.params.videoId, user._id).then((reaction) => {
+            console.log(reaction)
+            if (reaction) video.reactions.user = reaction.reaction;
+          }))
+        }
         video.channel = {}
-        const channelPromise = Users.getUserById(video.userId).then((user) =>{
+        promises.push(Users.getUserById(video.userId).then((user) =>{
           video.channel.name = user.username;
-        })
-        const likesPromise = Reactions.getReactionCount(req.params.videoId, 'like').then((count) => {
+        }))
+        promises.push(Reactions.getReactionCount(req.params.videoId, 'like').then((count) => {
           video.reactions.like = count;
-        });
-        const dislikesPromise = Reactions.getReactionCount(req.params.videoId, 'dislike').then((count) => {
+        }))
+        promises.push(Reactions.getReactionCount(req.params.videoId, 'dislike').then((count) => {
           video.reactions.dislike = count;
-        });
+        }))
         // promise all
-        await Promise.all([channelPromise, likesPromise, dislikesPromise])
+        await Promise.all(promises)
         res.status(200).json(video)
     }
     catch (error){
