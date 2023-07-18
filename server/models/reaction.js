@@ -6,7 +6,7 @@ const { client } = require('../config/mongodbconfig')
 const reactions = client.db("youbube").collection("reactions");
 
 module.exports.react = async (videoId, userId, reaction) => {
-    const existReaction = await reactions.findOne({ videoId : new ObjectId(videoId), userId : userId })
+    const existReaction = await reactions.findOne({ videoId : new ObjectId(videoId), userId : new ObjectId(userId) })
     if (existReaction){
         await reactions.updateOne({ videoId : new ObjectId(videoId), userId : userId }, { $set : { reaction : reaction }})
         return { videoId : new ObjectId(videoId), userId : userId, reaction : reaction }
@@ -19,7 +19,7 @@ module.exports.react = async (videoId, userId, reaction) => {
 }
 
 module.exports.getReaction = async (videoId, userId) => {
-    return await reactions.findOne({ videoId : new ObjectId(videoId), userId : userId })
+    return await reactions.findOne({ videoId : new ObjectId(videoId), userId : new ObjectId(userId) })
 }
 
 module.exports.getReactionCount = async (videoId, reaction) => {
@@ -32,7 +32,7 @@ module.exports.getReactions = async (videoId) => {
 }
 
 module.exports.deleteReaction = async (videoId, userId) => {
-    const results = await reactions.deleteOne({ videoId : new ObjectId(videoId), userId : userId });
+    const results = await reactions.deleteOne({ videoId : new ObjectId(videoId), userId : new ObjectId(userId) });
     return results.deletedCount;
 }
 
