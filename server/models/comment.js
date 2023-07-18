@@ -12,8 +12,8 @@ module.exports.getComment = async (videoId, commentId) => {
     return await comments.findOne({ videoId, _id : new ObjectId(commentId) });
 }
 
-module.exports.createComment = async (videoId, userId, date, body) => {
-    comment = { videoId : new ObjectId(videoId), userId : new ObjectId(userId), body, date }
+module.exports.createComment = async (videoId, userId, author, date, body) => {
+    comment = { videoId : new ObjectId(videoId), userId : new ObjectId(userId), author, body, date }
     const res = await comments.insertOne(comment);
     return comment
 }

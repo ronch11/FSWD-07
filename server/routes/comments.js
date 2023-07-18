@@ -36,7 +36,7 @@ router.post('/:videoId', async (req, res) => {
         const { error: bodyError, value } = bodySchema.validate(req.body)
         if(bodyError) return res.status(403).json(bodyError.details[0].message)
         const { body } = value
-        const comment = await Comments.createComment(req.params.videoId, user._id, new Date(), body)
+        const comment = await Comments.createComment(req.params.videoId, user._id, user.username, new Date(), body)
         res.status(200).json(comment)
     }
     catch(error){
