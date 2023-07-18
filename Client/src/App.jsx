@@ -1,16 +1,18 @@
 import Login from './Components/Login'
 import { useUserUpdate } from './UserContext'
-import { useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import {BrowserRouter, Route, Routes, NavLink, Navigate } from 'react-router-dom'
 import Profile from './Components/Profile'
 import Home from './Components/Home'
 import Video from './Components/Video'
 import NotFound404 from './Components/NotFound'
 import EditVideo from './Components/EditVideo'
+import ApiContext from './ApiContext'
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false)
     const [userName, setUserName] = useState('')
     const userUpdated = useUserUpdate();
+    const api = useContext(ApiContext);
     // useEffect(() => {
     //   const user = JSON.parse(localStorage.getItem('logged_user'))
     //   if (user !== undefined) {
@@ -21,16 +23,32 @@ function App() {
     //   }
     // }, [])
 
+    
+
 
     const handleSubmit = (user) => {
         setIsLoggedIn(user !== undefined);
         if(user === undefined){
             // set access token to null
-            localStorage.setItem('access_token', null);
+            localStorage.setItem('access_token', '');
         }
         setUserName(user?.username ?? '');
         userUpdated(user);
     }
+
+    useEffect(() => {
+        const accessToken = localStorage.getItem("access_token");
+        // if user doesnt exist, use access token to get user details
+        console.log(accessToken, ' is access token');
+        if (accessToken){
+            console.log('access token exists, getting user details');
+            api.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+            api.get('users/user').then(response => {
+                handleSubmit(response.data);
+            })
+        }
+    }, [])
+
     function getNav(){
         if (isLoggedIn){
             return (
