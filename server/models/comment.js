@@ -3,16 +3,17 @@ const { client } = require('../config/mongodbconfig')
 
 const comments = client.db("youbube").collection("comments");
 
-module.exports.getComments = async (postId) => {
-    return await comments.find({ postId: postId }).toArray();
+module.exports.getComments = async (videoId) => {
+    // get last 50 comments, sorted by date
+    return await comments.find({ videoId : new ObjectId(videoId) }).sort({ date : -1 }).limit(50).toArray();
 }
 
-module.exports.getComment = async (postId, commentId) => {
-    return await comments.findOne({ postId: postId, _id : new ObjectId(commentId) });
+module.exports.getComment = async (videoId, commentId) => {
+    return await comments.findOne({ videoId, _id : new ObjectId(commentId) });
 }
 
-module.exports.createComment = async (postId, name, body) => {
-    comment = { postId : postId, name, body }
+module.exports.createComment = async (videoId, userId, date, body) => {
+    comment = { videoId : new ObjectId(videoId), userId : new ObjectId(userId), body, date }
     const res = await comments.insertOne(comment);
     return comment
 }
@@ -24,8 +25,8 @@ module.exports.updateComment = async (postId, commentId, name, body) => {
     return comment
 }
 
-module.exports.deleteComment = async (postId, commentId) => {
-    const results = await comments.deleteOne({_id: new ObjectId(commentId), postId : postId});
+module.exports.deleteComment = async (commentId) => {
+    const results = await comments.deleteOne({_id: new ObjectId(commentId)});
     return results.deletedCount;
 }
     
