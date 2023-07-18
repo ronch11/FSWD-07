@@ -55,7 +55,7 @@ const Login = ({onLogIn, isLoggedIn}) => {
         const cookie = response.data.accessToken;
         // set cookie
         localStorage.setItem('access_token', cookie);
-        navigate('/Profile');
+        navigate('/Home');
         userUpdatedFunction(user);
         onLogIn(user);
       }

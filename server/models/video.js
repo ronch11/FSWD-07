@@ -74,6 +74,7 @@ module.exports.getMostViewed = async (amount=10, onlyPublic=true) => {
 }
 
 module.exports.getVideosForTags = async (tags, amount=10, onlyPublic=true) => {
+    if(!tags) return []
     const searchTags = Object.keys(tags);
     const findParams = {
         tags: { $in: searchTags }

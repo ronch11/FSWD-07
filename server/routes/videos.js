@@ -297,9 +297,9 @@ router.get('/recommendations', async (req, res) => {
       console.log(user)
       if(error) return res.status(403).json(error);
       if(user){
-        const videos = Videos.getVideosForTags(user.likedTags, vidsAmount)
+        const videos = await Videos.getVideosForTags(user.likedTags, vidsAmount)
         if (videos.length < vidsAmount) {
-          const moreVideos = Videos.getMostViewed(vidsAmount - videos.length, onlyPublic=true)
+          const moreVideos = await Videos.getMostViewed(vidsAmount - videos.length, onlyPublic=true)
           videos.push(...moreVideos)
         }
         console.log(videos)
@@ -312,7 +312,7 @@ router.get('/recommendations', async (req, res) => {
       }
     }
     catch (error){
-        console.log('abc',error)
+        console.log(error)
         res.status(500).json()
     }
 });
