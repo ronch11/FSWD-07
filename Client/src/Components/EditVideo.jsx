@@ -17,7 +17,7 @@ function EditVideo() {
             console.log(response);
             setTitle(response.data.title);
             setDescription(response.data.description);
-            setTags(response.data.tags);
+            setTags(response.data.tags.join(','));
             setVisibility(response.data.visibility);
         }).catch(error => {
             console.log(error);
