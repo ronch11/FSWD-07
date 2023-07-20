@@ -35,72 +35,80 @@ h2{
 }
 
 .submit-button{
+    /* Rectangle 1 */
+
+    box-sizing: border-box;
     position: absolute;
-    width: 188px;
-    height: 60px;
-    left: 276px;
-    top: 730px;
-    background: #AD2069;
-    border-radius: 5px;
+    width: 107px;
+    height: 21px;
+    left: 726px;
+    top: 632px;
+    background: #F00F0F;
+    border: 2px solid rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .login-label-user{
+    /* UserName */
+
     position: absolute;
     width: 118px;
-    height: 50px;
-    left: 127px;
-    top: 392px;
-    /*font-family: 'Assistant';*/
+    height: 26px;
+    left: 659px;
+    top: 500px;
+    /*font-family: 'Inter';*/
     font-style: normal;
-    font-weight: 400;
-    font-size: 24px;
-    line-height: 31px;
-    display: flex;
-    align-items: center;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 19px;
     color: #000000;
 }
 
 .login-input-user{
-    /* Rectangle 1 */
+    /* UserNameInput */
     box-sizing: border-box;
     position: absolute;
-    width: 486px;
-    height: 65px;
-    left: 127px;
-    top: 442px;
+    width: 228px;
+    height: 22px;
+    left: 659px;
+    top: 526px;
     background: #FFFFFF;
-    border: 1px solid #BABABA;
-    border-radius: 6px;
+    border: 2px solid #000000;
+
 }
 
 
 .login-label-pass{
+    /* Password */
+
     position: absolute;
     width: 118px;
-    height: 50px;
-    left: 133px;
-    top: 517px;
-    /*font-family: 'Assistant';*/
+    height: 26px;
+    left: 659px;
+    top: 566px;
+    /*font-family: 'Inter';*/
     font-style: normal;
-    font-weight: 400;
-    font-size: 24px;
-    line-height: 31px;
-    display: flex;
-    align-items: center;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 19px;
     color: #000000;
+
+
 }
 
 
 .login-input-pass{
+    /* PasswordInput */
+
     box-sizing: border-box;
     position: absolute;
-    width: 486px;
-    height: 65px;
-    left: 127px;
-    top: 567px;
+    width: 228px;
+    height: 22px;
+    left: 659px;
+    top: 592px;
     background: #FFFFFF;
-    border: 1px solid #BABABA;
-    border-radius: 6px;
+    border: 2px solid #000000;
+
 }
 
 /*.background{*/
