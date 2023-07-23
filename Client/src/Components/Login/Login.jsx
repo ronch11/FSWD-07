@@ -1,9 +1,9 @@
 import { useState, useEffect, useContext } from 'react'
-import { useUserUpdate } from '../UserContext.jsx'
+import { useUserUpdate } from '../../UserContext.jsx'
 import { useNavigate } from 'react-router-dom'
-import '../Styles/Login.css';
-import ApiContext from '../ApiContext.jsx';
-import TopNav from "./TopNav/TopNav.jsx";
+import '../../Styles/Login.css';
+import ApiContext from '../../ApiContext.jsx';
+import TopNav from "../TopNav/TopNav.jsx";
 
 // import background from '../../background/background.jpg';
 // import tech19 from '../../background/tech19.png';
@@ -34,39 +34,40 @@ const Login = ({onLogIn, isLoggedIn}) => {
 
   const handleLogin = async (event) => {
     event.preventDefault();
-    //console.log(await getUsers())
-    if (username === '') {
-      console.log('Login Failed');
-      setLoginError('Please enter a username');
-      return;
-    }
-    if (password === '') {
-      console.log('Login Failed');
-      setLoginError('Please enter a password');
-      return;
-    }
-    getUser(username, password).then((response) => {
-      if (response.status === 200) {
-        console.log(response.data);
-        alert("Login successful");
-        console.log(response)
-        const user = response.data.user;
-        // get cookie from response
-        const cookie = response.data.accessToken;
-        // set cookie
-        localStorage.setItem('access_token', cookie);
-        navigate('/Home');
-        userUpdatedFunction(user);
-        onLogIn(user);
-      }
-      else {
-        console.log('Login Failed');
-        setLoginError('Mismatched password');
-      }
-    }).catch((error) => {
-      console.log(error)
-      setLoginError('Error logging in');
-    });
+    navigate('/Home')
+    // //console.log(await getUsers())
+    // if (username === '') {
+    //   console.log('Login Failed');
+    //   setLoginError('Please enter a username');
+    //   return;
+    // }
+    // if (password === '') {
+    //   console.log('Login Failed');
+    //   setLoginError('Please enter a password');
+    //   return;
+    // }
+    // getUser(username, password).then((response) => {
+    //   if (response.status === 200) {
+    //     console.log(response.data);
+    //     alert("Login successful");
+    //     console.log(response)
+    //     const user = response.data.user;
+    //     // get cookie from response
+    //     const cookie = response.data.accessToken;
+    //     // set cookie
+    //     localStorage.setItem('access_token', cookie);
+    //     navigate('/Home');
+    //     userUpdatedFunction(user);
+    //     onLogIn(user);
+    //   }
+    //   else {
+    //     console.log('Login Failed');
+    //     setLoginError('Mismatched password');
+    //   }
+    // }).catch((error) => {
+    //   console.log(error)
+    //   setLoginError('Error logging in');
+    // });
 
   };
 
@@ -104,6 +105,7 @@ const Login = ({onLogIn, isLoggedIn}) => {
             {/* <button className="submit-button" type="button" onClick={handleSubmitRegister} >Register</button> */}
           </form>
         </div>
+        <h3>Don't have an account? <a href="/Register">Register</a></h3>
         {/* <video src={'https://localhost:8000/api/videos/watch/64b3ffbe8c8aff91c54ad1f5'} controls autoPlay/> */}
         {/*<img className="background" src={background} alt="Image 1" />*/}
         {/*<img className="logo" src={tech19} alt="Image 2" />*/}

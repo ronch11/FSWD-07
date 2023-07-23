@@ -1,13 +1,16 @@
-import Login from './Components/Login'
+import Login from './Components/Login/Login.jsx'
 import { useUserUpdate } from './UserContext'
 import { useEffect, useState, useContext } from 'react'
 import {BrowserRouter, Route, Routes, NavLink, Navigate } from 'react-router-dom'
 import Profile from './Components/Profile'
-import Home from './Components/Home'
+import Home from './Components/Home/Home.jsx'
 import Video from './Components/Video'
 import NotFound404 from './Components/NotFound'
 import EditVideo from './Components/EditVideo'
 import ApiContext from './ApiContext'
+import Register from "./Components/Register/Register.jsx";
+
+
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false)
     const [userName, setUserName] = useState('')
@@ -58,9 +61,6 @@ function App() {
                             <NavLink to="/Login" activeClassName="active">{isLoggedIn ? "Logout" : "Login"}</NavLink>
                         </li>
                         <li>
-                            <NavLink to="/Todos" activeClassName="active">Todos</NavLink>
-                        </li>
-                        <li>
                             <NavLink to="/Home" activeClassName="active">Home</NavLink>
                         </li>
                         <li>
@@ -89,6 +89,9 @@ function App() {
                 <Route path="/404" element={<NotFound404 />} />
                 <Route path="/Profile" element={<Profile />} />
                 <Route path="/Login" element={<Login onLogIn={handleSubmit} isLoggedIn={isLoggedIn} />} />
+                <Route path="/Register" element={<Register />}/>
+                <Route path="/Home" element={<Home />} />
+                <Route path="*" element={<Navigate to="/404" />} />
             </Routes>
         </BrowserRouter>
     )

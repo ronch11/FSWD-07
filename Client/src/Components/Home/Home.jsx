@@ -1,8 +1,8 @@
 import React from 'react'
-import { useUser } from "../UserContext";
+import { useUser } from "../../UserContext.jsx";
 import { useEffect, useState, useContext } from "react";
-import ApiContext from "../ApiContext";
-import VideoButton from './VideoButton';
+import ApiContext from "../../ApiContext.jsx";
+import VideoButton from '../VideoButton.jsx';
 function Home() {
     const user = useUser();
     const api = useContext(ApiContext);
