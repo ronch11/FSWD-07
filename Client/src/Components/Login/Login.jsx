@@ -34,40 +34,39 @@ const Login = ({onLogIn, isLoggedIn}) => {
 
   const handleLogin = async (event) => {
     event.preventDefault();
-    navigate('/Home')
-    // //console.log(await getUsers())
-    // if (username === '') {
-    //   console.log('Login Failed');
-    //   setLoginError('Please enter a username');
-    //   return;
-    // }
-    // if (password === '') {
-    //   console.log('Login Failed');
-    //   setLoginError('Please enter a password');
-    //   return;
-    // }
-    // getUser(username, password).then((response) => {
-    //   if (response.status === 200) {
-    //     console.log(response.data);
-    //     alert("Login successful");
-    //     console.log(response)
-    //     const user = response.data.user;
-    //     // get cookie from response
-    //     const cookie = response.data.accessToken;
-    //     // set cookie
-    //     localStorage.setItem('access_token', cookie);
-    //     navigate('/Home');
-    //     userUpdatedFunction(user);
-    //     onLogIn(user);
-    //   }
-    //   else {
-    //     console.log('Login Failed');
-    //     setLoginError('Mismatched password');
-    //   }
-    // }).catch((error) => {
-    //   console.log(error)
-    //   setLoginError('Error logging in');
-    // });
+    //console.log(await getUsers())
+    if (username === '') {
+      console.log('Login Failed');
+      setLoginError('Please enter a username');
+      return;
+    }
+    if (password === '') {
+      console.log('Login Failed');
+      setLoginError('Please enter a password');
+      return;
+    }
+    getUser(username, password).then((response) => {
+      if (response.status === 200) {
+        console.log(response.data);
+        alert("Login successful");
+        console.log(response)
+        const user = response.data.user;
+        // get cookie from response
+        const cookie = response.data.accessToken;
+        // set cookie
+        localStorage.setItem('access_token', cookie);
+        navigate('/Home');
+        userUpdatedFunction(user);
+        onLogIn(user);
+      }
+      else {
+        console.log('Login Failed');
+        setLoginError('Mismatched password');
+      }
+    }).catch((error) => {
+      console.log(error)
+      setLoginError('Error logging in');
+    });
 
   };
 

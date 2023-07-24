@@ -55,10 +55,13 @@ app.get('/', (req, res) => {
 app.use('/api/users', usersRouter)
 app.use('/api/videos', videosRouter)
 app.use('/api/comments', commentsRouter)
-const server = https.createServer(credentials, app);
-server.listen(PORT, () => {
-  console.log('Server is running on PORT:',PORT);
+app.listen(PORT, () => {
+    console.log('Server is running on PORT:', PORT);
 });
+// const server = https.createServer(credentials, app);
+// server.listen(PORT, () => {
+//   console.log('Server is running on PORT:',PORT);
+// });
 
 // client code
 // import axios from 'axios';
