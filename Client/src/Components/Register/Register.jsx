@@ -50,6 +50,7 @@ function Register({ onRegister }) {
     return (
         <main>
             <h1>Registration</h1>
+            <div className="login-container">
             <form className="login-form" onSubmit={handleSubmitRegister}>
                 <div>
                     <label className="Login-Label" htmlFor="username">Username</label>
@@ -107,9 +108,11 @@ function Register({ onRegister }) {
                     />
                 </div>
                 <button className="submit-button" type="button" onClick={handleSubmitRegister} >Register</button>
+                <h3>Already have an account? <a href="/Login">Login</a></h3>
 
 
             </form>
+            </div>
         </main>
     );
 }
