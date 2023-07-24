@@ -5,9 +5,6 @@ import '../../Styles/Login.css';
 import ApiContext from '../../ApiContext.jsx';
 import TopNav from "../TopNav/TopNav.jsx";
 
-// import background from '../../background/background.jpg';
-// import tech19 from '../../background/tech19.png';
-
 const Login = ({onLogIn, isLoggedIn}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -102,9 +99,10 @@ const Login = ({onLogIn, isLoggedIn}) => {
             <p className='login-error'>{loginError}</p>
             <button className="submit-button" type="button" onClick={handleLogin}>Login</button>
             {/* <button className="submit-button" type="button" onClick={handleSubmitRegister} >Register</button> */}
+            <h3>Don't have an account? <a href="/Register">Register</a></h3>
           </form>
         </div>
-        <h3>Don't have an account? <a href="/Register">Register</a></h3>
+
         {/* <video src={'https://localhost:8000/api/videos/watch/64b3ffbe8c8aff91c54ad1f5'} controls autoPlay/> */}
         {/*<img className="background" src={background} alt="Image 1" />*/}
         {/*<img className="logo" src={tech19} alt="Image 2" />*/}
