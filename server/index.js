@@ -7,7 +7,7 @@ const { existsSync } = require('fs');
 const { execSync } = require('child_process');
 const https = require('https');
 const fs = require('fs');
-
+const cors = require('cors');
 const privateKey = fs.readFileSync('security/privateKey.pem', 'utf8');
 const certificate = fs.readFileSync('security/certificate.pem', 'utf8');
 
@@ -28,6 +28,7 @@ const PORT = 8000;
 app.use(express.static(path.join(__dirname, 'dist')));
 app.use(express.static('uploads'));
 app.use(express.json())
+app.use(cors());
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173'); // Replace with your client application's URL
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
