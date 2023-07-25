@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useContext } from 'react';
-import ApiContext from "../ApiContext";
-import { useUser } from "../UserContext";
-import '../Styles/Videos.css'
-import VideoButton from './VideoButton';
+import ApiContext from "../../ApiContext.jsx";
+import { useUser } from "../../UserContext.jsx";
+import '../../Styles/Videos.css'
+import VideoButton from './VideoButton.jsx';
 import { useNavigate } from 'react-router-dom';
 function VideoComponent({videos, getVideos}) {
     const api = useContext(ApiContext);

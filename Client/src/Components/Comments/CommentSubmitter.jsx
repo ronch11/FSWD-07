@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState, useContext } from 'react'
-import ApiContext from '../ApiContext';
+import ApiContext from '../../ApiContext.jsx';
 function CommentSubmitter({videoid, addComment}) {
     const [body, setBody] = useState('');
     const api = useContext(ApiContext);

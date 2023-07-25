@@ -1,10 +1,10 @@
 import React from 'react'
-import { useUser } from "../UserContext";
+import { useUser } from "../../UserContext.jsx";
 import { useEffect, useState, useContext } from "react";
-import ApiContext from "../ApiContext";
+import ApiContext from "../../ApiContext.jsx";
 import { useParams, useNavigate } from "react-router-dom";
-import Comment from './Comment';
-import CommentSubmitter from './CommentSubmitter';
+import Comment from '../Comments/Comment.jsx';
+import CommentSubmitter from '../Comments/CommentSubmitter.jsx';
 function Video() {
     let {videoid} = useParams();
     const api = useContext(ApiContext);

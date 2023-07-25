@@ -4,12 +4,12 @@ import { useEffect, useState, useContext } from 'react'
 import {BrowserRouter, Route, Routes, NavLink, Navigate } from 'react-router-dom'
 import Profile from './Components/Profile'
 import Home from './Components/Home/Home.jsx'
-import Video from './Components/Video'
-import NotFound404 from './Components/NotFound'
-import EditVideo from './Components/EditVideo'
+import Video from './Components/Video/Video.jsx'
+import NotFound404 from './Components/NotFound/NotFound.jsx'
+import EditVideo from './Components/Video/EditVideo.jsx'
 import ApiContext from './ApiContext'
 import Register from "./Components/Register/Register.jsx";
-
+import './Styles/NavBar.css';
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false)
@@ -56,18 +56,19 @@ function App() {
         if (isLoggedIn){
             return (
                 <nav>
-                    <ul className="navbar">
-                        <li>
-                            <NavLink to="/Login" activeClassName="active">{isLoggedIn ? "Logout" : "Login"}</NavLink>
+                    <ul className="navbar" id="mynavnar">
+                        <li >
+                            {userName}
                         </li>
+
                         <li>
                             <NavLink to="/Home" activeClassName="active">Home</NavLink>
                         </li>
                         <li>
                             <NavLink to="/Profile" activeClassName="active">Profile</NavLink>
                         </li>
-                        <li style={{ marginLeft: "auto" }}>
-                            {userName}
+                        <li  style={{ marginLeft: "auto" }}>
+                            <NavLink to="/Login">{isLoggedIn ? "Logout" : "Login"}</NavLink>
                         </li>
                     </ul>
                 </nav>

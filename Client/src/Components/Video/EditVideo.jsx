@@ -1,7 +1,7 @@
 import React from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useState, useEffect, useContext } from 'react';
-import ApiContext from '../ApiContext';
+import ApiContext from '../../ApiContext.jsx';
 function EditVideo() {
     const api = useContext(ApiContext);
     const navigate = useNavigate();

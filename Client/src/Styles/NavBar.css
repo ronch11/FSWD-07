@@ -1,0 +1,74 @@
+/* NavBar.css */
+
+/* Reset some default styles for better consistency */
+body, ul {
+    margin: 0;
+    padding: 0;
+}
+
+/* Basic styles for the navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #222; /* Change this to your desired background color */
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add a subtle shadow for a 3D effect */
+}
+
+/* Style for the list items inside the navbar */
+.navbar li {
+    margin-right: 15px; /* Adjust the spacing between the items */
+}
+
+/* Style for the links inside the navbar */
+.navbar li a {
+    color: #fff; /* Change this to your desired link text color */
+    text-decoration: none; /* Remove underlines from links */
+    padding: 8px 12px; /* Adjust the padding around the links */
+    border-radius: 5px; /* Add rounded corners to the links */
+    transition: background-color 0.2s ease; /* Smooth transition on hover */
+}
+
+/* Style for the active link */
+.navbar li a.active {
+    background-color: #007bff; /* Change this to your desired active link background color */
+}
+
+/* Style for the user name on the right side of the navbar */
+.navbar li:last-child {
+    color: #fff; /* Change this to your desired text color for the username */
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+/* Add an icon for the user name */
+.navbar li:last-child::before {
+    content: '\f007'; /* Use a font-awesome icon (adjust as needed) */
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    margin-right: 5px;
+}
+
+/* Optional: Add a hover effect to the links */
+.navbar li a:hover {
+    background-color: #007bff; /* Change this to your desired link background color on hover */
+}
+
+/* Responsive styles for smaller screens */
+@media screen and (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .navbar li {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    .navbar li:last-child {
+        margin-left: 0;
+    }
+}

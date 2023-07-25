@@ -2,20 +2,24 @@ import React from 'react'
 import { useUser } from "../../UserContext.jsx";
 import { useEffect, useState, useContext } from "react";
 import ApiContext from "../../ApiContext.jsx";
-import VideoButton from '../VideoButton.jsx';
+import VideoButton from '../Video/VideoButton.jsx';
+import '../../Styles/Home.css';
+
+
+
 function Home() {
     const user = useUser();
     const api = useContext(ApiContext);
     const [videos, setVideos] = useState([]);
 
     const homeStyle = {
-      display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', // This will create responsive grid layout for videos
-      gridGap: '1rem', // Gap between videos
-      padding: '1rem',
-      boxSizing: 'border-box',
-      margin: '0 auto',
-      maxWidth: '1200px',
+      // display: 'grid',
+      // gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', // This will create responsive grid layout for videos
+      // gridGap: '1rem', // Gap between videos
+      // padding: '1rem',
+      // boxSizing: 'border-box',
+      // margin: '0 auto',
+      // maxWidth: '1200px',
     };
 
     useEffect(() => {
@@ -32,7 +36,7 @@ function Home() {
     
 
   return (
-    <div style={homeStyle}>
+    <div className= "homeStyle">
       {
             videos.map(video => {
                 return <VideoButton video={video} baseurl={api.defaults.baseURL} />

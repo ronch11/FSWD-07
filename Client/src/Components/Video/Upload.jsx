@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
-import ApiContext from "../ApiContext";
+import ApiContext from "../../ApiContext.jsx";
 const VideoUploader = ({getVideos}) => {
   // get access token from local storage
   const access_token = localStorage.getItem('access_token');

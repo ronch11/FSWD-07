@@ -1,5 +1,5 @@
-import VideoUploader from "../Components/Upload";
-import VideoComponent from "./Videos";
+import VideoUploader from "./Video/Upload.jsx";
+import VideoComponent from "./Video/Videos.jsx";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../UserContext";
 import { useEffect, useState, useContext } from "react";
