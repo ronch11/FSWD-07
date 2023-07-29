@@ -9,8 +9,9 @@ const defaultVideoDetails = {
     fileName : "video",
     fileType : "mp4",
     views : 0,
-    visibility : "private",
+    visibility : "public",
 }
+ //TODO: change to privatecd
 
 const videos = client.db("youbube").collection("videos");
 

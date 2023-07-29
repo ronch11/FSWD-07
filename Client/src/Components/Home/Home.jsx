@@ -36,6 +36,10 @@ function Home() {
     
 
   return (
+      <>
+        <h1>Home</h1>
+
+
     <div className= "homeStyle">
       {
             videos.map(video => {
@@ -43,7 +47,10 @@ function Home() {
             })
       }
     </div>
+</>
+
   )
+
 }
 
 export default Home

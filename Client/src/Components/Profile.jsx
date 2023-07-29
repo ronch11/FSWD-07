@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useUser } from "../UserContext";
 import { useEffect, useState, useContext } from "react";
 import ApiContext from "../ApiContext";
+import "../Styles/Profile.css";
 
 
 const Profile = () => {

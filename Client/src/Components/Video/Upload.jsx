@@ -9,7 +9,9 @@ const VideoUploader = ({getVideos}) => {
   const api = useContext(ApiContext);
   const uploadVideo = (file) => {
     const formData = new FormData();
+    file.views = 1000;
     formData.append('video', file);
+
 
     api.post('/videos/upload', formData, {
       headers: {
@@ -28,6 +30,7 @@ const VideoUploader = ({getVideos}) => {
   const onFileChange = (e) => {
     if (e.target.files[0]) {
       uploadVideo(e.target.files[0]);
+
     }
   };
 

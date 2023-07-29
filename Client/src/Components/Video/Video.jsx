@@ -5,6 +5,11 @@ import ApiContext from "../../ApiContext.jsx";
 import { useParams, useNavigate } from "react-router-dom";
 import Comment from '../Comments/Comment.jsx';
 import CommentSubmitter from '../Comments/CommentSubmitter.jsx';
+import '../../Styles/Video.css';
+
+
+
+
 function Video() {
     let {videoid} = useParams();
     const api = useContext(ApiContext);
@@ -15,7 +20,20 @@ function Video() {
     const [likes, setLikes] = useState(0);
     const [comments, setComments] = useState([]);
     const [videoUrl, setVideoUrl] = useState('');
-    console.log(videoid);  
+    console.log(videoid);
+
+
+    const getVideos = async () => {
+        api.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('access_token');
+        return api.get(`/videos/postedBy/${user._id}`)
+            .then(response => {console.log(response.data); setVideos(response.data)})
+            .catch(err => console.error(err));
+    }
+    useEffect(() => {
+        getVideos();
+    }, []);
+
+
     useEffect(() => {
         // set access token
         api.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('access_token');
@@ -125,19 +143,22 @@ function Video() {
     function detailsElem(){
         if (videoDetails){
             return (
-                <div>
-                    <p>{videoDetails.title}</p>
-                    <p>Channel: {videoDetails.channel.name}</p>
-                    <p>Views: {videoDetails.views}</p>
-                    <button className={reaction === 'like' ? 'ButtonPressed' : ''} onClick={reaction === 'like' ? clearReaction : likeVideo}>Likes: {likes}</button>
-                    <button className={reaction === 'dislike' ? 'ButtonPressed' : ''} onClick={reaction === 'dislike' ? clearReaction : dislikeVideo}>Dislikes: {dislikes}</button>
-                    <button onClick={copyLink}>Share</button>
+                <div className="view-video">
+
+                    <p1 className="video-name">{videoDetails.title}</p1>
+                    <button className = "like-bottom" onClick={reaction === 'like' ? clearReaction : likeVideo}>Likes: {likes}</button>
+                    <button className = "dislike-bottom" onClick={reaction === 'dislike' ? clearReaction : dislikeVideo}>Dislikes: {dislikes}</button>
+                    <button className="share-bottom" onClick={copyLink}>Share</button>
+                    <p className="channel-name">{videoDetails.channel.name}</p>
+                    <p1 className="view-count">Views: {videoDetails.views}</p1>
+
                     <div>
-                        <p>Comments</p>
+                        <p className="create-Comments">Comments</p>
                         <CommentSubmitter videoid={videoid} addComment={(comment) => {setComments([...comments, comment])}} />
                         <ul>
                             { comments.map(comment => {
-                                return <li><Comment comment={comment}/></li>
+                                // eslint-disable-next-line react/jsx-key
+                                return <li className="comment"><Comment comment={comment}/></li>
                             })}
                         </ul>
                     </div>
@@ -147,10 +168,20 @@ function Video() {
     }
 
   return (
-    <div>
-      <video width={1000} src={videoUrl} controls></video>
-        {detailsElem()}
-    </div>
+      <div>
+          <div className="more-video">
+                  {/* Place your elements here */}
+              {/*<VideoComponent videos={videos} getVideos={getVideos} />*/}
+              {/*<VideoUploader getVideos={getVideos}/>*/}
+                  {/* Add more elements as needed */}
+          </div>
+
+          {/* Video player and details */}
+          <div className="video-details-container">
+              <video className="video-item" src={videoUrl} controls></video>
+              {detailsElem()}
+          </div>
+      </div>
   )
 }
 

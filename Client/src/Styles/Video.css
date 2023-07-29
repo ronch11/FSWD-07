@@ -1,6 +1,130 @@
-.ButtonPressed {
-  background-color: #f5f5f5;
-  border: 1px solid #f5f5f5;
-  border-radius: 5px;
-  color: #000;
+.view-video{
+  margin-left: 150px;
+
+
+
 }
+
+
+.video-item{
+  width: 1500px;
+  height: 800px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff;
+  margin-left: 150px;
+
+}
+
+
+.video-name{
+  margin-top: 10px;
+  color: #1e88e5;
+  font-size: 50px;
+}
+
+.channel-name{
+  margin-top: 0px;
+  /*color: gold;*/
+  font-size: 20px;
+  font-weight: bold;
+
+
+}
+
+.view-count{
+  color: #1e88e5;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+
+.video-item:hover{
+  background-color: #f5f5f5;
+
+}
+
+.like-bottom {
+  margin-top: 20px;
+  margin-left: 1050px;
+  background-color: #4CAF50; /* Green background color for like button */
+  color: white; /* Text color */
+  padding: 10px 20px; /* Add some padding around the text */
+  border: none; /* Remove the button border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Add a cursor pointer on hover */
+}
+
+.dislike-bottom {
+
+  background-color: #f44336; /* Red background color for dislike button */
+  color: white; /* Text color */
+  padding: 10px 20px; /* Add some padding around the text */
+  border: none; /* Remove the button border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Add a cursor pointer on hover */
+}
+
+.share-bottom {
+
+  background-color: #007bff; /* Blue background color for share button */
+  color: white; /* Text color */
+  padding: 10px 20px; /* Add some padding around the text */
+  border: none; /* Remove the button border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Add a cursor pointer on hover */
+}
+
+/* Add these styles to your existing CSS file or create a new one */
+.create-Comments {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+new-componnet{
+  margin-left: 150px;
+}
+
+.comment-list {
+  list-style: none;
+  padding: 0;
+}
+
+.comment {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.comment-author {
+  font-weight: bold;
+}
+
+.comment-content {
+  margin-top: 5px;
+}
+
+.comment-date {
+  font-size: 12px;
+  color: #777;
+}
+
+.more-video{
+   /* Rectangle 1 */
+
+   position: absolute;
+   width: 480px;
+   height: 910px;
+   left: 712px;
+   top: 72px;
+   background: red;
+   margin-left: 990px;
+
+ }
