@@ -27,7 +27,7 @@ const PORT = 8000;
 
 app.use(express.static(path.join(__dirname, 'dist')));
 app.use(express.static('uploads'));
-app.use(express.json())
+app.use(express.json());
 app.use(cors());
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173'); // Replace with your client application's URL
@@ -37,9 +37,9 @@ app.use((req, res, next) => {
     next();
 });
 app.use(fileUpload());
-const usersRouter = require('./routes/users')
-const videosRouter = require('./routes/videos')
-const commentsRouter = require('./routes/comments')
+const usersRouter = require('./routes/users');
+const videosRouter = require('./routes/videos');
+const commentsRouter = require('./routes/comments');
 if (!existsSync(path.join(__dirname, 'dist'))) {
     console.log('Building client files...');
     execSync('cd ' + path.join(__dirname, '../client' + ' && npm run build'));

@@ -175,12 +175,13 @@ router.put('/update/:videoId', async (req, res) => {
     const bodySchema = Joi.object({
         title : Joi.string(),
         description : Joi.string(),
-        tags : Joi.array().items(Joi.string()),
+        tags : Joi.array().items(Joi.string().allow('')),
         visibility : Joi.string().valid('public', 'private', 'unlisted'),
     })
     const { error: bodyError, value } = bodySchema.validate(req.body)
     if(bodyError) return res.status(400).json(bodyError.details[0].message)
     const changes = value
+    if (changes.tags.length === 1 && changes.tags[0] === '') changes.tags = []
     try{
         const video = await Videos.getVideoById(req.params.videoId)
         console.log(video)
