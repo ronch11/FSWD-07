@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="d6025a93-c00b-4996-985e-59adbf4528e8" name="Changes" comment="add bar&#10;order the video in Home page">
+      <change afterPath="$PROJECT_DIR$/Client/src/Styles/Profile.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/src/Components/Home/Home.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/Components/Home/Home.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/src/Components/NotFound/NotFound.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/Components/NotFound/NotFound.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/src/Components/Profile.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/Components/Profile.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/src/Components/Video/Upload.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/Components/Video/Upload.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/src/Components/Video/Video.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/Components/Video/Video.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/src/Styles/Video.css" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/Styles/Video.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/models/video.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/models/video.js" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+        <option value="CSS File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="ronch11 &lt;71279601+ronch11@users.noreply.github.com&gt;" />
+      </list>
+    </option>
+    <option name="PUSH_AUTO_UPDATE" value="true" />
+    <option name="PUSH_TAGS">
+      <GitPushTagMode>
+        <option name="argument" value="--tags" />
+        <option name="title" value="All" />
+      </GitPushTagMode>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2Se3949rmaZytPCp6AGuqrucv58" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\WebStorm 2023.1\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="ReactDesignerToolWindowState">
+    <option name="myId2Visible">
+      <map>
+        <entry key="com.haulmont.rcb.reactComponents" value="false" />
+        <entry key="com.haulmont.rcb.reactInspector" value="false" />
+      </map>
+    </option>
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\ronch\WebstormProjects\FSWD-07\Client\src" />
+      <recent name="C:\Users\ronch\WebstormProjects\FSWD-07\Client\src\Components\NotFound" />
+      <recent name="C:\Users\ronch\WebstormProjects\FSWD-07\Client\src\Components\Video" />
+      <recent name="C:\Users\ronch\WebstormProjects\FSWD-07\Client\src\Components\Comments" />
+      <recent name="C:\Users\ronch\WebstormProjects\FSWD-07\server\security" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d6025a93-c00b-4996-985e-59adbf4528e8" name="Changes" comment="" />
+      <created>1689493064735</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1689493064735</updated>
+      <workItem from="1689493067055" duration="443000" />
+      <workItem from="1689493630556" duration="183000" />
+      <workItem from="1689493853750" duration="1807000" />
+      <workItem from="1689504754367" duration="770000" />
+      <workItem from="1689513341081" duration="371000" />
+      <workItem from="1689839550082" duration="1819000" />
+      <workItem from="1690086409861" duration="103000" />
+      <workItem from="1690097759444" duration="6927000" />
+      <workItem from="1690119754624" duration="688000" />
+      <workItem from="1690179524051" duration="89000" />
+      <workItem from="1690179748870" duration="5029000" />
+      <workItem from="1690196345165" duration="19000" />
+      <workItem from="1690199245566" duration="695000" />
+      <workItem from="1690213521254" duration="2728000" />
+      <workItem from="1690262902196" duration="6899000" />
+      <workItem from="1690276619030" duration="9763000" />
+      <workItem from="1690306412859" duration="1268000" />
+      <workItem from="1690314231437" duration="595000" />
+      <workItem from="1690353426324" duration="338000" />
+      <workItem from="1690353784218" duration="9000" />
+      <workItem from="1690355591733" duration="6105000" />
+      <workItem from="1690378397991" duration="5000" />
+      <workItem from="1690530750813" duration="5008000" />
+    </task>
+    <task id="LOCAL‎-00001" summary="add client">
+      <option name="closed" value="true" />
+      <created>1689498186289</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL‎-00001" />
+      <option name="project" value="LOCAL‎" />
+      <updated>1689498186289</updated>
+    </task>
+    <task id="LOCAL‎-00002" summary="add client">
+      <option name="closed" value="true" />
+      <created>1689498203121</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL‎-00002" />
+      <option name="project" value="LOCAL‎" />
+      <updated>1689498203121</updated>
+    </task>
+    <task id="LOCAL‎-00003" summary="add client">
+      <option name="closed" value="true" />
+      <created>1689498281230</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL‎-00003" />
+      <option name="project" value="LOCAL‎" />
+      <updated>1689498281230</updated>
+    </task>
+    <task id="LOCAL‎-00004" summary="add client">
+      <option name="closed" value="true" />
+      <created>1689498295630</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL‎-00004" />
+      <option name="project" value="LOCAL‎" />
+      <updated>1689498295630</updated>
+    </task>
+    <task id="LOCAL‎-00005" summary="add client">
+      <option name="closed" value="true" />
+      <created>1689498306463</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL‎-00005" />
+      <option name="project" value="LOCAL‎" />
+      <updated>1689498306463</updated>
+    </task>
+    <task id="LOCAL‎-00006" summary="add client">
+      <option name="closed" value="true" />
+      <created>1689498326576</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL‎-00006" />
+      <option name="project" value="LOCAL‎" />
+      <updated>1689498326576</updated>
+    </task>
+    <task id="LOCAL‎-00007" summary="add client">
+      <option name="closed" value="true" />
+      <created>1689498462931</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL‎-00007" />
+      <option name="project" value="LOCAL‎" />
+      <updated>1689498462931</updated>
+    </task>
+    <task id="LOCAL‎-00008" summary="add client">
+      <option name="closed" value="true" />
+      <created>1689498506675</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL‎-00008" />
+      <option name="project" value="LOCAL‎" />
+      <updated>1689498506675</updated>
+    </task>
+    <task id="LOCAL‎-00009" summary="add client">
+      <option name="closed" value="true" />
+      <created>1689839599861</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL‎-00009" />
+      <option name="project" value="LOCAL‎" />
+      <updated>1689839599861</updated>
+    </task>
+    <task id="LOCAL‎-00010" summary="add client">
+      <option name="closed" value="true" />
+      <created>1690112905764</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL‎-00010" />
+      <option name="project" value="LOCAL‎" />
+      <updated>1690112905764</updated>
+    </task>
+    <task id="LOCAL‎-00011" summary="add client">
+      <option name="closed" value="true" />
+      <created>1690216075631</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL‎-00011" />
+      <option name="project" value="LOCAL‎" />
+      <updated>1690216075631</updated>
+    </task>
+    <task id="LOCAL‎-00012" summary="add bar&#10;order the video in Home page">
+      <option name="closed" value="true" />
+      <created>1690292978609</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL‎-00012" />
+      <option name="project" value="LOCAL‎" />
+      <updated>1690292978609</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="add client" />
+    <MESSAGE value="add bar&#10;order the video in Home page" />
+    <option name="LAST_COMMIT_MESSAGE" value="add bar&#10;order the video in Home page" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/Client/src/Components/Profile.jsx</url>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
