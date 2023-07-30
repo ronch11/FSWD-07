@@ -2,7 +2,7 @@ import Login from './Components/Login/Login.jsx'
 import { useUserUpdate } from './UserContext'
 import { useEffect, useState, useContext } from 'react'
 import {BrowserRouter, Route, Routes, NavLink, Navigate } from 'react-router-dom'
-import Profile from './Components/Profile'
+import Profile from './Components/Profile/Profile.jsx'
 import Home from './Components/Home/Home.jsx'
 import Video from './Components/Video/Video.jsx'
 import NotFound404 from './Components/NotFound/NotFound.jsx'
@@ -10,6 +10,8 @@ import EditVideo from './Components/Video/EditVideo.jsx'
 import ApiContext from './ApiContext'
 import Register from "./Components/Register/Register.jsx";
 import './Styles/NavBar.css';
+import ForgotPassword from "./Components/ForgotPassword/ForgotPassword.jsx";
+import ResetPassword from "./Components/resetPassword/resetPassword.jsx";
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false)
@@ -92,6 +94,8 @@ function App() {
                 <Route path="/Login" element={<Login onLogIn={handleSubmit} isLoggedIn={isLoggedIn} />} />
                 <Route path="/Register" element={<Register />}/>
                 <Route path="/Home" element={<Home />} />
+                <Route path="ForgotPassword" element={<ForgotPassword/>} />
+                <Route path="ResetPassword" element={<ResetPassword/>} />
                 <Route path="*" element={<Navigate to="/404" />} />
             </Routes>
         </BrowserRouter>
