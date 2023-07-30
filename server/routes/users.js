@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const Users = require('../models/user')
+const Playlists = require('../models/playlist')
 const Joi = require('joi')
 const router = express.Router()
 const jwt = require('jsonwebtoken');
@@ -66,12 +67,12 @@ router.get('/user', async (req, res) => {
 
 router.post('/CreateUser', async (req, res) => {
     const bodySchema = Joi.object({
-        username : Joi.string().required(),
-        firstName : Joi.string().required(),
-        lastName : Joi.string().required(),
-        password : Joi.string().required(),
+        username : Joi.string().max(25).required(),
+        firstName : Joi.string().max(40).required(),
+        lastName : Joi.string().max(40).required(),
+        password : Joi.string().min(6).max(30).required(),
         email : Joi.string().required(),
-        phone : Joi.string().required()
+        phone : Joi.number().required()
     })
     const {error, value} = bodySchema.validate(req.body)
     if(error) return res.status(400).json(error.details[0].message)
@@ -80,6 +81,8 @@ router.post('/CreateUser', async (req, res) => {
         if (await Users.getUser(username, password)) return res.status(409).json("User already exists");
         const result = await Users.createUser(username, password, firstName, lastName, email, phone);
         console.log('new user', value)
+        const playlist = await Playlists.createPlaylist(result.insertedId, Playlists.historyPlaylistName)
+        //TODO: check if successfull
         res.status(201).json(result)
     }catch{
         res.status(500)

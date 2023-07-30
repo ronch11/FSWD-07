@@ -40,6 +40,7 @@ app.use(fileUpload());
 const usersRouter = require('./routes/users');
 const videosRouter = require('./routes/videos');
 const commentsRouter = require('./routes/comments');
+const historyRouter = require('./routes/history');
 if (!existsSync(path.join(__dirname, 'dist'))) {
     console.log('Building client files...');
     execSync('cd ' + path.join(__dirname, '../client' + ' && npm run build'));
@@ -55,6 +56,7 @@ app.get('/', (req, res) => {
 app.use('/api/users', usersRouter)
 app.use('/api/videos', videosRouter)
 app.use('/api/comments', commentsRouter)
+app.use('/api/history', historyRouter)
 app.listen(PORT, () => {
     console.log('Server is running on PORT:', PORT);
 });

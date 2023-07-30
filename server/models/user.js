@@ -62,12 +62,23 @@ module.exports.watchVideo = async (userId, videoId, date) => {
     }
 }
 
-module.exports.getHistory = async (userId) => {
+module.exports.getHistory = async (userId, amount) => {
     try{
-        return await history.find({userId : new ObjectId(userId)}).toArray()
+        return await history.find({userId : new ObjectId(userId)}).sort({date : -1}).limit(amount).toArray()
     }catch(err){
         if (err instanceof BSONError){
             return [];
+        }
+        throw err;
+    }
+}
+
+module.exports.clearHistory = async (userId) => {
+    try{
+        return (await history.deleteMany({userId : new ObjectId(userId)})).deletedCount
+    }catch(err){
+        if (err instanceof BSONError){
+            return 0;
         }
         throw err;
     }
@@ -92,4 +103,3 @@ module.exports.likeTags = async (userId, tags) => {
     if (!status.acknowledged) return false
     return true
 }
-
