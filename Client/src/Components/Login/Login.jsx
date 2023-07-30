@@ -29,7 +29,7 @@ const Login = ({onLogIn, isLoggedIn}) => {
   }, []);
 
 
-  const handleLogin = async (event) => {
+  const handleSubmitLogin = async (event) => {
     event.preventDefault();
     //console.log(await getUsers())
     if (username === '') {
@@ -67,43 +67,176 @@ const Login = ({onLogIn, isLoggedIn}) => {
 
   };
 
-  const handleSubmitRegister = (event) => {
-    event.preventDefault();
-    navigate("/Register");
-  };
+
+  // const handleSubmitRegister = (event) => {
+  //   console.log('Register');
+  // };
+
+  const handleRegister = (event) => {
+    console.log('Register');
+    let container = document.querySelector(".container");
+    container.classList.add("sign-up-mode");
+  }
+
+  const handleLogin = (event) => {
+    console.log('Login');
+    let container = document.querySelector(".container");
+    container.classList.remove("sign-up-mode");
+
+  }
+
 
   return (
     <>
       {<TopNav/>}
-      <main>
-        <h1>Welcome back</h1>
-        <h2>Welcome back! please enter your details.</h2>
+      <div>
+        <title>Sign in &amp; Sign up Form</title>
+        <div className="container">
+          <div className="forms-container">
+            <div className="signin-signup">
+              <form action="#" className="sign-in-form">
+                <h2 className="title">Sign in</h2>
+                <div className="input-field">
+                  <i className="fas fa-user" />
+                  <input
+                      type="text"
+                      id="username"
+                      value={username}
+                      onChange={(e) => setUsername(e.target.value)}
+                  />
+                </div>
+                <div className="input-field">
+                  <i className="fas fa-lock" />
+                  <input
+                      type="password"
+                      id="password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                  />
+                </div>
+                <button className="btn solid" type="submit" onClick={handleSubmitLogin} >Sing In</button>
+                <p className="social-text">Or Sign in with social platforms</p>
+                <div className="social-media">
+                  <a href="#" className="social-icon">
+                    <i className="fab fa-facebook-f" />
+                  </a>
+                  <a href="#" className="social-icon">
+                    <i className="fab fa-twitter" />
+                  </a>
+                  <a href="#" className="social-icon">
+                    <i className="fab fa-google" />
+                  </a>
+                  <a href="#" className="social-icon">
+                    <i className="fab fa-linkedin-in" />
+                  </a>
+                </div>
+              </form>
 
 
-            <label className="login-label-user" htmlFor="username">Username:</label>
-            <input
-                className="login-input-user"
-                type="text"
-                id="username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-            />
-            <label className="login-label-pass" htmlFor="password">Password:</label>
-            <input
-                className="login-input-pass"
-                type="password"
-                id="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-            />
-            <p className='login-error'>{loginError}</p>
-            <button className="submit-button" type="button" onClick={handleLogin}>Login</button>
-            <h4 className="f-pass">Forgot your password? <a href="/ForgotPassword">Reset</a></h4>
-            <h3>Don't have an account? <a href="/Register">Register</a></h3>
+              <form action="#" className="sign-up-form">
+                <h2 className="title">Sign up</h2>
+                {/*<div className="input-field">*/}
+                {/*  <i className="fas fa-user" />*/}
+                {/*  <input*/}
+                {/*      type="text"*/}
+                {/*      id="username"*/}
+                {/*      value={username}*/}
+                {/*      onChange={(event) => setUsername(event.target.value)}*/}
+                {/*  />*/}
+                {/*</div>*/}
+                {/*<div className="input-field">*/}
+                {/*  <i className="fas fa-envelope" />*/}
+                {/*  <input*/}
+                {/*    type="password"*/}
+                {/*    id="password"*/}
+                {/*    value={password}*/}
+                {/*    onChange={(event) => setPassword(event.target.value)}*/}
+                {/*  />*/}
+                {/*</div>*/}
+                {/*<div className="input-field">*/}
+                {/*  <i className="fas fa-lock" />*/}
+                {/*  <input*/}
+                {/*      type="text"*/}
+                {/*      id="email"*/}
+                {/*      value={email}*/}
+                {/*      onChange={(event) => setemail(event.target.value)}*/}
+                {/*  />*/}
+                {/*</div>*/}
+                {/*<div className="input-field">*/}
+                {/*  <i className="fas fa-lock" />*/}
+                {/*    <input*/}
+                {/*        ype="text"*/}
+                {/*        id="firstName"*/}
+                {/*        value={firstName}*/}
+                {/*        onChange={(event) => setfirstName(event.target.value)}*/}
+                {/*    />*/}
+                {/*</div>*/}
+                {/*<div className="input-field">*/}
+                {/*    <i className="fas fa-lock" />*/}
+                {/*    <input*/}
+                {/*        type="text"*/}
+                {/*        id="lastName"*/}
+                {/*        value={lastName}*/}
+                {/*        onChange={(event) => setlastName(event.target.value)}*/}
+                {/*    />*/}
+                {/*</div>*/}
+                {/*<div className="input-field">*/}
+                {/*    <i className="fas fa-lock" />*/}
+                {/*    <input*/}
+                {/*        type="text"*/}
+                {/*        id="phone"*/}
+                {/*        value={phone}*/}
+                {/*        onChange={(event) => setphone(event.target.value)}*/}
+                {/*    />*/}
+                {/*</div>*/}
 
-
-
-      </main>
+                <button type="submit" className="btn" >Sign Up</button>
+                <p className="social-text">Or Sign up with social platforms</p>
+                <div className="social-media">
+                  <a href="#" className="social-icon">
+                    <i className="fab fa-facebook-f" />
+                  </a>
+                  <a href="#" className="social-icon">
+                    <i className="fab fa-twitter" />
+                  </a>
+                  <a href="#" className="social-icon">
+                    <i className="fab fa-google" />
+                  </a>
+                  <a href="#" className="social-icon">
+                    <i className="fab fa-linkedin-in" />
+                  </a>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div className="panels-container">
+            <div className="panel left-panel">
+              <div className="content">
+                <h3>New here ?</h3>
+                <p>
+                  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis,
+                  ex ratione. Aliquid!
+                </p>
+                <button className="btn transparent" id="sign-up-btn" onClick={handleRegister}>
+                  Sign up
+                </button>
+              </div>
+            </div>
+            <div className="panel right-panel">
+              <div className="content">
+                <h3>One of us ?</h3>
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum
+                  laboriosam ad deleniti.
+                </p>
+                <button className="btn transparent" id="sign-in-btn" onClick={handleLogin} >
+                  Sign in
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 };
