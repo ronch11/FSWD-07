@@ -1,7 +1,6 @@
 require('dotenv').config();
 const express = require('express');
 const Users = require('../models/user')
-const Playlists = require('../models/playlist')
 const Joi = require('joi')
 const router = express.Router()
 const jwt = require('jsonwebtoken');
@@ -81,7 +80,6 @@ router.post('/CreateUser', async (req, res) => {
         if (await Users.getUser(username, password)) return res.status(409).json("User already exists");
         const result = await Users.createUser(username, password,email, firstName, lastName, phone);
         console.log('new user', value)
-        const playlist = await Playlists.createPlaylist(result.insertedId, Playlists.historyPlaylistName)
         //TODO: check if successfull
         res.status(201).json(result)
 
