@@ -10,8 +10,9 @@ router.get('/', async (req, res) => {
     if(err) return res.status(401).json(err)
     if(!user) return res.status(404).json("User not found")
     const history = await Users.getHistory(user._id, 50);
+    const videos = await history.map((watch) => watch.videoId);
     //TODO: decide whether to return only names and ids, without all videos in all playlist
-    return res.status(200).json(history);
+    return res.status(200).json(videos);
 });
 
 router.delete('/', async (req, res) => {
