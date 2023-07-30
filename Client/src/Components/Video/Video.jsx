@@ -152,6 +152,8 @@ function Video() {
                     <p className="channel-name">{videoDetails.channel.name}</p>
                     <p1 className="view-count">Views: {videoDetails.views}</p1>
 
+
+
                     <div>
                         <p className="create-Comments">Comments</p>
                         <CommentSubmitter videoid={videoid} addComment={(comment) => {setComments([...comments, comment])}} />

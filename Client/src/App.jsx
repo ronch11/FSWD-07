@@ -12,6 +12,7 @@ import Register from "./Components/Register/Register.jsx";
 import './Styles/NavBar.css';
 import ForgotPassword from "./Components/ForgotPassword/ForgotPassword.jsx";
 import ResetPassword from "./Components/resetPassword/resetPassword.jsx";
+import History from "./Components/History/History.jsx";
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false)
@@ -69,6 +70,12 @@ function App() {
                         <li>
                             <NavLink to="/Profile" activeClassName="active">Profile</NavLink>
                         </li>
+                        <li>
+                            <NavLink to="/History" activeClassName="active">History</NavLink>
+                        </li>
+                        <li>
+                            <NavLink to="/Playlist" activeClassName="active">Playlist</NavLink>
+                        </li>
                         <li  style={{ marginLeft: "auto" }}>
                             <NavLink to="/Login">{isLoggedIn ? "Logout" : "Login"}</NavLink>
                         </li>
@@ -94,8 +101,9 @@ function App() {
                 <Route path="/Login" element={<Login onLogIn={handleSubmit} isLoggedIn={isLoggedIn} />} />
                 <Route path="/Register" element={<Register />}/>
                 <Route path="/Home" element={<Home />} />
-                <Route path="ForgotPassword" element={<ForgotPassword/>} />
-                <Route path="ResetPassword" element={<ResetPassword/>} />
+                <Route path="/ForgotPassword" element={<ForgotPassword/>} />
+                <Route path="/ResetPassword" element={<ResetPassword/>} />
+                <Route path="/History" element={<History />}/>
                 <Route path="*" element={<Navigate to="/404" />} />
             </Routes>
         </BrowserRouter>
