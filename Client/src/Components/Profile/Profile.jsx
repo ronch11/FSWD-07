@@ -1,10 +1,10 @@
-import VideoUploader from "./Video/Upload.jsx";
-import VideoComponent from "./Video/Videos.jsx";
+import VideoUploader from "../Video/Upload.jsx";
+import VideoComponent from "../Video/Videos.jsx";
 import { useNavigate } from "react-router-dom";
-import { useUser } from "../UserContext";
+import { useUser } from "../../UserContext.jsx";
 import { useEffect, useState, useContext } from "react";
-import ApiContext from "../ApiContext";
-import "../Styles/Profile.css";
+import ApiContext from "../../ApiContext.jsx";
+import "../../Styles/Profile.css";
 
 
 const Profile = () => {
