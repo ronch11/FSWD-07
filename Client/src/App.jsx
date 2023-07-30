@@ -1,4 +1,4 @@
-import Login from './Components/Login/Login.jsx'
+import Auth from './Components/Login/Auth.jsx'
 import { useUserUpdate } from './UserContext'
 import { useEffect, useState, useContext } from 'react'
 import {BrowserRouter, Route, Routes, NavLink, Navigate } from 'react-router-dom'
@@ -99,7 +99,7 @@ function App() {
                 <Route path="/editvideo/:videoid" element={<EditVideo />}/>
                 <Route path="/404" element={<NotFound404 />} />
                 <Route path="/Profile" element={<Profile />} />
-                <Route path="/Login" element={<Login onLogIn={handleSubmit} isLoggedIn={isLoggedIn} />} />
+                <Route path="/Login" element={<Auth onLogIn={handleSubmit} isLoggedIn={isLoggedIn} />} />
                 <Route path="/Register" element={<Register />}/>
                 <Route path="/Home" element={<Home />} />
                 <Route path="/ForgotPassword" element={<ForgotPassword/>} />
