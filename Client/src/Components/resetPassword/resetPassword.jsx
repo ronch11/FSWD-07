@@ -16,20 +16,15 @@ function ResetPassword() {
             <main>
                 <h1>Welcome back</h1>
                 <h2>Enter your new password.</h2>
-                <div className="">
-                    <form className="" onSubmit={resetPassword}>
-                        <label className="" htmlFor="username">Password:</label>
-                        <input
-
-
+                        <label className="r-pass" htmlFor="Password">Password:</label>
+                        <input className="repass"
                         />
-                        <label className="" htmlFor="username">Confirm Password:</label>
-                        <input
+                        <label className="r-pass" htmlFor="Password">Confirm Password:</label>
+                        <input className="repass"
 
                         />
                         <button className="" type="submit">Confirm password</button>
-                    </form>
-                </div>
+
             </main>
         </>
     );

@@ -2,6 +2,7 @@ import React from 'react'
 import { useEffect, useState, useContext } from 'react'
 import VideoList from '../Video/VideoList.jsx'
 import ApiContext from '../../ApiContext.jsx';
+import '../../Styles/History.css'
 function History() {
     const [videos, setVideos] = useState([]);
     const api = useContext(ApiContext);

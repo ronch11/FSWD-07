@@ -78,8 +78,8 @@ const Login = ({onLogIn, isLoggedIn}) => {
       <main>
         <h1>Welcome back</h1>
         <h2>Welcome back! please enter your details.</h2>
-        <div className="login-container">
-          <form className="login-form" onSubmit={handleLogin}>
+
+
             <label className="login-label-user" htmlFor="username">Username:</label>
             <input
                 className="login-input-user"
@@ -100,8 +100,8 @@ const Login = ({onLogIn, isLoggedIn}) => {
             <button className="submit-button" type="button" onClick={handleLogin}>Login</button>
             <h4 className="f-pass">Forgot your password? <a href="/ForgotPassword">Reset</a></h4>
             <h3>Don't have an account? <a href="/Register">Register</a></h3>
-          </form>
-        </div>
+
+
 
       </main>
     </>

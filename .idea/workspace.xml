@@ -5,10 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d6025a93-c00b-4996-985e-59adbf4528e8" name="Changes" comment="add forget password">
-      <change afterPath="$PROJECT_DIR$/Client/src/Components/History/history.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Client/src/Styles/History.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/App.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/Components/Video/Video.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/Components/Video/Video.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/src/Components/History/History.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/Components/History/History.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/src/Components/Login/Login.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/Components/Login/Login.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/src/Components/Register/Register.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/Components/Register/Register.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/src/Components/Video/Videos.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/Components/Video/Videos.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/src/Components/resetPassword/resetPassword.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/Components/resetPassword/resetPassword.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/src/Styles/Login.css" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/Styles/Login.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/src/Styles/Profile.css" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/Styles/Profile.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/src/Styles/Register.css" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/Styles/Register.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/src/Styles/Videos.css" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/Styles/Videos.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/src/Styles/forgotPassword.css" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/Styles/forgotPassword.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/src/Styles/resetPassword.css" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/Styles/resetPassword.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -246,6 +255,12 @@
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/Client/src/Components/Profile/Profile.jsx</url>
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/Client/src/Components/Register/Register.jsx</url>
+          <line>99</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
