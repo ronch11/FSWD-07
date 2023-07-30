@@ -13,7 +13,8 @@ import './Styles/NavBar.css';
 import ForgotPassword from "./Components/ForgotPassword/ForgotPassword.jsx";
 import ResetPassword from "./Components/resetPassword/resetPassword.jsx";
 import History from "./Components/History/History.jsx";
-
+import Playlists from "./Components/Playlist/Playlists.jsx";
+import Playlist from './Components/Playlist/Playlist.jsx'
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false)
     const [userName, setUserName] = useState('')
@@ -74,7 +75,7 @@ function App() {
                             <NavLink to="/History" activeClassName="active">History</NavLink>
                         </li>
                         <li>
-                            <NavLink to="/Playlist" activeClassName="active">Playlist</NavLink>
+                            <NavLink to="/Playlists" activeClassName="active">Playlists</NavLink>
                         </li>
                         <li  style={{ marginLeft: "auto" }}>
                             <NavLink to="/Login">{isLoggedIn ? "Logout" : "Login"}</NavLink>
@@ -104,6 +105,8 @@ function App() {
                 <Route path="/ForgotPassword" element={<ForgotPassword/>} />
                 <Route path="/ResetPassword" element={<ResetPassword/>} />
                 <Route path="/History" element={<History />}/>
+                <Route path="/Playlists" element={<Playlists />}/>
+                <Route path="/Playlist/:playlistId" element={<Playlist />}/>
                 <Route path="*" element={<Navigate to="/404" />} />
             </Routes>
         </BrowserRouter>

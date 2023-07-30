@@ -41,6 +41,7 @@ const usersRouter = require('./routes/users');
 const videosRouter = require('./routes/videos');
 const commentsRouter = require('./routes/comments');
 const historyRouter = require('./routes/history');
+const playlistsRouter = require('./routes/playlists');
 if (!existsSync(path.join(__dirname, 'dist'))) {
     console.log('Building client files...');
     execSync('cd ' + path.join(__dirname, '../client' + ' && npm run build'));
@@ -57,6 +58,7 @@ app.use('/api/users', usersRouter)
 app.use('/api/videos', videosRouter)
 app.use('/api/comments', commentsRouter)
 app.use('/api/history', historyRouter)
+app.use('/api/playlists', playlistsRouter)
 app.listen(PORT, () => {
     console.log('Server is running on PORT:', PORT);
 });

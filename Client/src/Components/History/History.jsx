@@ -1,6 +1,6 @@
 import React from 'react'
 import { useEffect, useState, useContext } from 'react'
-import Playlist from '../Playlist/Playlist'
+import VideoList from '../Video/VideoList.jsx'
 import ApiContext from '../../ApiContext.jsx';
 function History() {
     const [videos, setVideos] = useState([]);
@@ -21,7 +21,7 @@ function History() {
     }, [])
   return (
     <div>
-      <Playlist videos={videos}/>
+      <VideoList videos={videos} detailsIncluded={false}/>
     </div>
   )
 }

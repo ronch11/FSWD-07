@@ -77,6 +77,7 @@ router.post('/upload', async (req, res) => {
   });
 
 const viewsMap = {};
+// TODO: move to db?
 router.get('/watch/:videoId', async (req, res) => {
     try
     {
@@ -85,7 +86,7 @@ router.get('/watch/:videoId', async (req, res) => {
         const video = await Videos.getVideoById(req.params.videoId)
         if(!video) return res.status(404).json("Video not found")
         if(video.visibility === 'private' && (!user || video.userId.toString() !== user._id.toString())) return res.status(401).json("You are not allowed to watch this video")
-        await Users.watchVideo(video.userId, video._id, new Date())
+        
         // TODO: check if user is allowed to watch the video, if not return 403
         const videoPath = __dirname + '/../uploads/' + video.userId + '/' + video._id + '.' + video.fileType; //adjust the path as needed
         console.log(videoPath);
@@ -99,6 +100,7 @@ router.get('/watch/:videoId', async (req, res) => {
         if (currentTime - lastViewTime > 1000 * 10) { // if difference is more than 10 second
             await Videos.addView(req.params.videoId);
             viewsMap[`${userIp}:${req.params.videoId}`] = currentTime; // jot down the time
+            await Users.watchVideo(video.userId, video._id, new Date());
         }
 
         // stream the video

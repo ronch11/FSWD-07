@@ -145,12 +145,12 @@ function Video() {
             return (
                 <div className="view-video">
 
-                    <p1 className="video-name">{videoDetails.title}</p1>
+                    <p className="video-name">{videoDetails.title}</p>
                     <button className = "like-bottom" onClick={reaction === 'like' ? clearReaction : likeVideo}>Likes: {likes}</button>
                     <button className = "dislike-bottom" onClick={reaction === 'dislike' ? clearReaction : dislikeVideo}>Dislikes: {dislikes}</button>
                     <button className="share-bottom" onClick={copyLink}>Share</button>
                     <p className="channel-name">{videoDetails.channel.name}</p>
-                    <p1 className="view-count">Views: {videoDetails.views}</p1>
+                    <p className="view-count">Views: {videoDetails.views}</p>
 
 
 
