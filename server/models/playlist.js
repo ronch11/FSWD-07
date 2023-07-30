@@ -1,4 +1,5 @@
 const { ObjectId } = require('mongodb');
+const { BSONError } = require('bson');
 const { client } = require('../config/mongodbconfig')
 
 const playlists = client.db("youbube").collection("playlists");
@@ -6,7 +7,15 @@ const playlists = client.db("youbube").collection("playlists");
 // playlist will contain: playlist id, playlist's owner, playlist name, videos id list
 
 module.exports.getPlaylist = async (playlistId) => {
-    return await playlists.findOne({ _id: new ObjectId(playlistId) });
+    try{
+        return await playlists.findOne({ _id: new ObjectId(playlistId) });
+    }
+    catch(err){
+        if (err instanceof BSONError){
+            return null
+        }
+        throw err;
+    }
 }
 
 module.exports.getPlaylistByIdAndName = async (userId, playlistName) => {

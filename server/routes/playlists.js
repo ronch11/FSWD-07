@@ -22,8 +22,7 @@ router.get('/light/:playlistId', async (req, res) => {
     const playlist = await Playlists.getPlaylist(req.params.playlistId);
     if(!playlist) return res.status(404).json("Playlist not found");
     if(!playlist.userId.equals(user._id)) return res.status(403).json("Forbidden");
-    const videos = playlist.videos;
-    return res.status(200).json(videos);
+    return res.status(200).json(playlist);
 });
 
 router.get('/full/:playlistId', async (req, res) => {
