@@ -79,14 +79,20 @@ router.post('/CreateUser', async (req, res) => {
     const { username, password, firstName, lastName, email, phone } = value
     try{
         if (await Users.getUser(username, password)) return res.status(409).json("User already exists");
-        const result = await Users.createUser(username, password, firstName, lastName, email, phone);
+        const result = await Users.createUser(username, password,email, firstName, lastName, phone);
         console.log('new user', value)
         const playlist = await Playlists.createPlaylist(result.insertedId, Playlists.historyPlaylistName)
         //TODO: check if successfull
         res.status(201).json(result)
+
     }catch{
         res.status(500)
     }
+})
+
+router.get('/reset-password', async (req, res) => {
+    alert("reset password");
+
 })
 
 router.delete('/:userId', async (req, res) => {
