@@ -4,6 +4,7 @@ import { useUser } from "../../UserContext.jsx";
 import '../../Styles/Videos.css'
 import VideoButton from './VideoButton.jsx';
 import { useNavigate } from 'react-router-dom';
+
 function VideoComponent({videos, getVideos}) {
     const api = useContext(ApiContext);
     const user = useUser();
@@ -33,10 +34,10 @@ function VideoComponent({videos, getVideos}) {
     return (
         <div className="video-list">
       {videos.map((video, index) => (
-        <div>
+        <div className="order-vidoes">
         <VideoButton key={index} video={video} baseurl={api.defaults.baseURL} />
-        <button value={video._id} onClick={editVideo}>Edit</button>
-        <button value={video._id} onClick={deleteVideo}>Delete</button>
+        <button className="Edit-Bottom" value={video._id} onClick={editVideo}>Edit</button>
+        <button className="Delete-Bottom" value={video._id} onClick={deleteVideo}>Delete</button>
         </div>
       ))}
     </div>

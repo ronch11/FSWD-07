@@ -1,0 +1,59 @@
+/* History.css */
+
+/* Styles for the container holding the playlist */
+.history-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Styles for the entire playlist */
+.playlist {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-gap: 20px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Styles for each item in the playlist */
+.playlist-item {
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+/* Styles for the video player */
+.playlist-item video {
+    width: 100%;
+    height: auto;
+    border-radius: 5px 5px 0 0;
+}
+
+/* Styles for the video details */
+.playlist-item-details {
+    padding: 10px;
+}
+
+/* Styles for the video title */
+.video-title {
+    font-size: 18px;
+    color: #333;
+    margin: 0;
+}
+
+/* Styles for the video description */
+.video-description {
+    font-size: 14px;
+    color: #666;
+    margin-top: 5px;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .playlist {
+        grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+    }
+}
