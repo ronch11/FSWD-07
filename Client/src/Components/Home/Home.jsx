@@ -4,14 +4,14 @@ import { useEffect, useState, useContext } from "react";
 import ApiContext from "../../ApiContext.jsx";
 import VideoButton from '../Video/VideoButton.jsx';
 import '../../Styles/Home.css';
-
+import { useLoadingUpdate } from '../../LoadingContext';
 
 
 function Home() {
     const user = useUser();
     const api = useContext(ApiContext);
     const [videos, setVideos] = useState([]);
-
+    const setLoading = useLoadingUpdate();
     const homeStyle = {
       // display: 'grid',
       // gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', // This will create responsive grid layout for videos
@@ -23,6 +23,7 @@ function Home() {
     };
 
     useEffect(() => {
+        setLoading(true);
         const accessToken = localStorage.getItem("access_token");
         console.log(accessToken);
         // load videos for user
@@ -31,6 +32,7 @@ function Home() {
         api.get("/videos/recommendations").then(response => {
             console.log(response);
             setVideos(response.data);
+            setLoading(false);
         })
     }, [])
     
