@@ -128,13 +128,13 @@ form.sign-in-form {
 }
 
 .social-icon:hover {
-    color: #4481eb;
-    border-color: #4481eb;
+    color: #ea1212;
+    border-color: #ea1212;
 }
 
 .btn {
     width: 150px;
-    background-color: #5995fd;
+    background-color: #ea1212;
     border: none;
     outline: none;
     height: 49px;
@@ -148,8 +148,50 @@ form.sign-in-form {
 }
 
 .btn:hover {
-    background-color: #4d84e2;
+    background-color: #ea1212;
 }
+
+.btn-secsess {
+    width: 150px;
+    background-color: #15e30a;
+    border: none;
+    outline: none;
+    height: 49px;
+    border-radius: 49px;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin: 10px 0;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.btn-secsess:hover {
+    background-color: #15e30a;
+}
+
+.btn-feiled {
+    width: 150px;
+    background-color: #e30a0a;
+    border: none;
+    outline: none;
+    height: 49px;
+    border-radius: 49px;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin: 10px 0;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.btn-feiled:hover {
+    background-color: #e30a0a;
+}
+
+
+
+
 .panels-container {
     position: absolute;
     height: 100%;
@@ -168,7 +210,7 @@ form.sign-in-form {
     top: -10%;
     right: 48%;
     transform: translateY(-50%);
-    background-image: linear-gradient(-45deg, #4481eb 0%, #04befe 100%);
+    background-image: linear-gradient(-45deg, #ea1212 0%, #b8b8b8 100%);
     transition: 1.8s ease-in-out;
     border-radius: 50%;
     z-index: 6;
@@ -397,4 +439,12 @@ form.sign-in-form {
         bottom: 28%;
         left: 50%;
     }
+}
+
+.bottomsecsess{
+    background-color: green;
+}
+
+.bottomfield{
+    background-color: yellow;
 }
