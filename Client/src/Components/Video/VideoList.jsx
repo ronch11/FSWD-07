@@ -3,7 +3,7 @@ import {useNavigate} from 'react-router-dom'
 import { useEffect, useContext, useState } from 'react';
 import ApiContext from '../../ApiContext.jsx';
 import VideoButton from '../Video/VideoButton.jsx';
-function VideoList({videos, detailsIncluded}) {
+function VideoList({videos, detailsIncluded, allowEdit, allowDelete, onVideoDeleted }) {
     // structure of the video object: [...video ids]
     // useEffect(() => {
     //     //Get videos details from the server
@@ -35,12 +35,31 @@ function VideoList({videos, detailsIncluded}) {
             })
         }, [videos])
     }
+
+    const editVideo = async (e) => {
+        navigate('/editvideo/' + e.target.value);
+    }
+  
+    const deleteVideo = async (e) => {
+        let confirmAction = confirm("Are you sure you want to delete this video?");
+        if (confirmAction){
+            api.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('access_token');
+            return api.delete(`/videos/delete/${e.target.value}`)
+            .then(response => {onVideoDeleted(e.target.value);})
+            .catch(err => console.error(err));
+        }else{
+            return;
+        }
+    }
+
     return (
         <div>
         <ul style={{ listStyle: 'none' }}>
             {videosDetails.map((video, index) => {
                 return <li key={index}>
                         <VideoButton video={video} baseurl={api.defaults.baseURL}/>
+                        {allowEdit ? <button className="Edit-Bottom" value={video._id} onClick={editVideo}>Edit</button> : ''}
+                        {allowDelete ? <button className="Delete-Bottom" value={video._id} onClick={deleteVideo}>Delete</button> : ''}
                     </li>
             })}
         </ul>
