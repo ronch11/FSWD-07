@@ -38,18 +38,16 @@ function Home() {
 
   return (
       <>
-        <h1>Home</h1>
-          <section>
-              <Container>
-                  <Row>
-                      videos?.map((video) => (
-                      <Col lg="3" md="2" sm="6" className="mb-4" key={item.id}>
+          <h1>Home</h1>
+
+
+          <div className= "homeStyle">
+              {
+                  videos.map(video => {
                       return <VideoButton video={video} baseurl={api.defaults.baseURL} />
-                      </Col>
-                      ))}
-                  </Row>
-              </Container>
-          </section>
+                  })
+              }
+          </div>
 
       </>
 
