@@ -1,83 +1,78 @@
-.view-video{
+/* Base styles for .view-video */
+.view-video {
   margin-left: 150px;
-
-
-
 }
 
-
-.video-item{
-  width: 1500px;
-  height: 800px;
+/* Base styles for .video-item */
+.video-item {
+  width: 100%;
+  height: auto;
+  max-width: 1100px;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
   background-color: #fff;
-  margin-left: 150px;
-
+  margin-left: 80px;
+  box-sizing: border-box;
 }
 
+/* Base styles for .title-like */
+.title-like {
+  margin-top: -10px;
+}
 
-.video-name{
+/* Base styles for .video-name */
+.video-name {
   margin-top: 10px;
   color: #1e88e5;
   font-size: 50px;
 }
 
-.channel-name{
+/* Base styles for .channel-name */
+.channel-name {
   margin-top: 0px;
-  /*color: gold;*/
   font-size: 20px;
   font-weight: bold;
-
-
 }
 
-.view-count{
+/* Base styles for .view-count */
+.view-count {
   color: #1e88e5;
   font-size: 20px;
   font-weight: bold;
 }
 
-
-.video-item:hover{
+/* Hover state for .video-item */
+.video-item:hover {
   background-color: #f5f5f5;
-
 }
 
-.like-bottom {
-  margin-top: 20px;
-  margin-left: 1050px;
-  background-color: #4CAF50; /* Green background color for like button */
-  color: white; /* Text color */
-  padding: 10px 20px; /* Add some padding around the text */
-  border: none; /* Remove the button border */
-  border-radius: 5px; /* Rounded corners */
-  cursor: pointer; /* Add a cursor pointer on hover */
+/* Base styles for .like-bottom, .dislike-bottom, and .share-bottom */
+.like-bottom,
+.dislike-bottom,
+.share-bottom {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 10px;
+  transition: all 0.3s;
 }
 
 .dislike-bottom {
-
-  background-color: #f44336; /* Red background color for dislike button */
-  color: white; /* Text color */
-  padding: 10px 20px; /* Add some padding around the text */
-  border: none; /* Remove the button border */
-  border-radius: 5px; /* Rounded corners */
-  cursor: pointer; /* Add a cursor pointer on hover */
+  background-color: #f44336;
 }
 
 .share-bottom {
+  background-color: #007bff;
+}
 
-  background-color: #007bff; /* Blue background color for share button */
-  color: white; /* Text color */
-  padding: 10px 20px; /* Add some padding around the text */
-  border: none; /* Remove the button border */
-  border-radius: 5px; /* Rounded corners */
-  cursor: pointer; /* Add a cursor pointer on hover */
+/* Adjust the positioning for the buttons */
+.button-container {
+  display: flex;
+  justify-content: space-between;
 }
 
 /* Add these styles to your existing CSS file or create a new one */
@@ -87,7 +82,7 @@
   margin-bottom: 10px;
 }
 
-new-componnet{
+new-componnet {
   margin-left: 150px;
 }
 
@@ -116,15 +111,36 @@ new-componnet{
   color: #777;
 }
 
-.more-video{
-   /* Rectangle 1 */
+/* Media query for smaller screens */
+@media screen and (max-width: 768px) {
+  .view-video {
+    margin-left: 10px;
+  }
+  .video-item {
+    margin-left: 10px;
+  }
+  .button-container {
+    flex-direction: column;
+  }
+  .like-bottom,
+  .dislike-bottom,
+  .share-bottom {
+    margin: 5px 0;
+    width: 100%;
+    font-size: 14px;
+    padding: 8px 15px;
+  }
+  .more-video {
+    position: relative;
+    left: auto;
+    top: auto;
+    margin-left: 0;
+  }
+}
 
-   position: absolute;
-   width: 480px;
-   height: 910px;
-   left: 712px;
-   top: 72px;
-   background: red;
-   margin-left: 990px;
-
- }
+/* Updated styles for .more-video */
+.more-video {
+  position: absolute;
+  right: 10px;
+  top: 50px; /* Adjust the top property to move the div up slightly */
+}

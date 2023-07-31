@@ -149,16 +149,24 @@ function Video() {
             return (
                 <div className="view-video">
 
-                    <p className="video-name">{videoDetails.title}</p>
+
+                    <div className= "title-like">
+                    
                     <button className = "like-bottom" onClick={reaction === 'like' ? clearReaction : likeVideo}>Likes: {likes}</button>
                     <button className = "dislike-bottom" onClick={reaction === 'dislike' ? clearReaction : dislikeVideo}>Dislikes: {dislikes}</button>
                     <button className="share-bottom" onClick={copyLink}>Share</button>
+                    <p className="video-name">{videoDetails.title}</p>
+                    </div>
+
+
+                    
+                    
                     <p className="channel-name">{videoDetails.channel.name}</p>
                     <p className="view-count">Views: {videoDetails.views}</p>
 
-                    <div className="playlist-adder">
+                    {/* <div className="playlist-adder">
                         <PlaylistAdder videoId={videoid} />
-                    </div>
+                    </div> */}
 
                     <div>
                         <p className="create-Comments">Comments</p>
@@ -176,17 +184,20 @@ function Video() {
     }
 
   return (
-      <div>
-          <div className="more-video">
-                <VideoList videos={recommendations} detailsIncluded={true} />
-          </div>
-
-          {/* Video player and details */}
-          <div className="video-details-container">
-              <video className="video-item" src={videoUrl} controls></video>
-              {detailsElem()}
-          </div>
+    <div className='video-page-container'>
+    {/* <div className="more-video">
+      <VideoList videos={recommendations} detailsIncluded={true} />
+    </div> */}
+  
+    {/* Video player and details */}
+    <div className="video-details-container">
+      <div className="playlist-adder">
+        <PlaylistAdder videoId={videoid} />
       </div>
+      <video className="video-item" src={videoUrl} controls></video>
+      {detailsElem()}
+    </div>
+  </div>
   )
 }
 
