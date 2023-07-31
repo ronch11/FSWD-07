@@ -10,3 +10,5 @@ module.exports.client = new MongoClient(uri, {
       deprecationErrors: true,
     }
 });
+
+module.exports.dbName = 'youbube'

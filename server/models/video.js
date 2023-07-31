@@ -1,6 +1,6 @@
 const { ObjectId } = require('mongodb');
 const { BSONError } = require('bson');
-const { client } = require('../config/mongodbconfig')
+const { client, dbName } = require('../config/mongodbconfig')
 
 const defaultVideoDetails = {
     title : "video title",
@@ -13,7 +13,7 @@ const defaultVideoDetails = {
 }
  //TODO: change to privatecd
 
-const videos = client.db("youbube").collection("videos");
+const videos = client.db(dbName).collection("videos");
 
 module.exports.createVideo = async (userId, fileType, fileName) => {
     const video = {userId : userId, ...defaultVideoDetails, fileType : fileType, fileName : fileName}

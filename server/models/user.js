@@ -1,9 +1,9 @@
 const { ObjectId } = require('mongodb');
 const { BSONError } = require('bson');
-const { client } = require('../config/mongodbconfig')
+const { client, dbName } = require('../config/mongodbconfig')
 
-const users = client.db("youbube").collection("users");
-const history = client.db("youbube").collection("history");
+const users = client.db(dbName).collection("users");
+const history = client.db(dbName).collection("history");
 
 
 module.exports.getUser = async (username, password) => {

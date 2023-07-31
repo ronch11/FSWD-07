@@ -1,7 +1,7 @@
 const { ObjectId } = require('mongodb');
-const { client } = require('../config/mongodbconfig')
+const { client, dbName } = require('../config/mongodbconfig')
 
-const comments = client.db("youbube").collection("comments");
+const comments = client.db(dbName).collection("comments");
 
 module.exports.getComments = async (videoId) => {
     // get last 50 comments, sorted by date

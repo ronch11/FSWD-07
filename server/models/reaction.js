@@ -1,9 +1,9 @@
 // for like/dislike
 
 const { ObjectId } = require('mongodb');
-const { client } = require('../config/mongodbconfig')
+const { client, dbName } = require('../config/mongodbconfig')
 
-const reactions = client.db("youbube").collection("reactions");
+const reactions = client.db(dbName).collection("reactions");
 
 module.exports.react = async (videoId, userId, reaction) => {
     const existReaction = await reactions.findOne({ videoId : new ObjectId(videoId), userId : new ObjectId(userId) })

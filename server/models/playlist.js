@@ -1,8 +1,8 @@
 const { ObjectId } = require('mongodb');
 const { BSONError } = require('bson');
-const { client } = require('../config/mongodbconfig')
+const { client, dbName } = require('../config/mongodbconfig')
 
-const playlists = client.db("youbube").collection("playlists");
+const playlists = client.db(dbName).collection("playlists");
 
 // playlist will contain: playlist id, playlist's owner, playlist name, videos id list
 
