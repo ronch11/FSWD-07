@@ -43,22 +43,30 @@ function EditVideo() {
         });
     }
     
+    const backgroundImageUrl = api.defaults.baseURL + '/videos/thumb/' + videoid;
 
+    const pageStyles = {
+        backgroundImage: `url(${backgroundImageUrl})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        width: '100vw', // Take the full viewport width
+        height: '100vh', // Take the full viewport height
+        /* Additional background styles can be added here */
+      };
+    
 
     
 
   return (
     <>
 
-    <div className='video-edite'>
-    <img width={320} src={api.defaults.baseURL + '/videos/thumb/' + videoid}></img>
-
-    </div>
+   
 
 
 
 
-    
+    <div style={pageStyles}>
     <div className='update-video'>
           <form className='form1-update' onSubmit={updateVideo}>
             <label className='lab-up'>
@@ -87,7 +95,8 @@ function EditVideo() {
 
             <input className='sub-edi' type="submit" value="Submit" />
           </form>
-      </div>
+    </div>
+    </div>
 
      </> 
   )
