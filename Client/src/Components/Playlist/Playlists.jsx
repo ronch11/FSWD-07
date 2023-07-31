@@ -4,6 +4,8 @@ import ApiContext from '../../ApiContext';
 import Playlist from './Playlist';
 import { useNavigate } from 'react-router-dom';
 import { useLoadingUpdate } from '../../LoadingContext';
+
+
 function Playlists() {
     const api = useContext(ApiContext);
     const [playlists, setPlaylists] = useState([]);
