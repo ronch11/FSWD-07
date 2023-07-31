@@ -25,7 +25,6 @@ router.delete('/', async (req, res) => {
     if(!user) return res.status(404).json("User not found");
 
     await Users.clearHistory(user._id);
-    console.log("cleared history");
     return res.status(200).json("History cleared");
     
     //TODO: add other cases

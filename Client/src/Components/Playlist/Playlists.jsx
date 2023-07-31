@@ -3,16 +3,19 @@ import { useEffect, useState, useContext } from 'react'
 import ApiContext from '../../ApiContext';
 import Playlist from './Playlist';
 import { useNavigate } from 'react-router-dom';
+import { useLoadingUpdate } from '../../LoadingContext';
 function Playlists() {
     const api = useContext(ApiContext);
     const [playlists, setPlaylists] = useState([]);
     const [playlistName, setPlaylistName] = useState('');
+    const setLoading = useLoadingUpdate();
     const navigate = useNavigate();
     useEffect(() => {
         //Get Playlists from the server
         const token = localStorage.getItem('access_token')
         // set the authorization header
         api.defaults.headers.common['Authorization'] = `Bearer ${token}`
+        setLoading(true);
         api.get('/playlists/').then((response) => {
             console.log(response.data)
             setPlaylists(response.data)
@@ -20,19 +23,23 @@ function Playlists() {
         ).catch((error) => {
             console.log(error)
         }
-        );
+        ).finally(() => {
+            setLoading(false);
+        });
     }, [])
 
     const handleAddPlaylist = (e) => {
         e.preventDefault();
+        setLoading(true);
         api.post('/playlists/', {name: playlistName}).then((response) => {
             console.log(response.data)
             setPlaylists([...playlists, response.data])
             setPlaylistName('');
-
         }
         ).catch((error) => {
             console.log(error)
+        }).finally(() => {
+            setLoading(false);
         });
     }
 

@@ -8,7 +8,7 @@ import CommentSubmitter from '../Comments/CommentSubmitter.jsx';
 import '../../Styles/Video.css';
 import VideoList from './VideoList.jsx';
 import PlaylistAdder from './PlaylistAdder.jsx';
-
+import { useLoadingUpdate } from '../../LoadingContext';
 
 function Video() {
     let {videoid} = useParams();
@@ -21,15 +21,17 @@ function Video() {
     const [comments, setComments] = useState([]);
     const [videoUrl, setVideoUrl] = useState('');
     const [recommendations, setRecommendations] = useState([]);
+    const setLoading = useLoadingUpdate();
     console.log(videoid);
     const user = useUser();
 
     // get video, details, recommendations and comments
     useEffect(() => {
+        setLoading(true);
         // set access token
         api.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('access_token');
         // request video details
-        api.get(`/videos/details/${videoid}`).then(response => {
+        const p1 = api.get(`/videos/details/${videoid}`).then(response => {
             console.log(response);
             setVideoDetails(response.data);
             setLikes(response.data.reactions.like);
@@ -47,7 +49,7 @@ function Video() {
 
         // request video
         // set response type to blob for this request
-        api.get(api.defaults.baseURL + '/videos/watch/' + videoid, {
+        const p2 = api.get(api.defaults.baseURL + '/videos/watch/' + videoid, {
             responseType: 'blob'
             }
           ).then(response => {
@@ -59,20 +61,21 @@ function Video() {
           });
 
         // request comments
-        api.get('/comments/' + videoid).then(response => {
+        const p3 = api.get('/comments/' + videoid).then(response => {
             console.log(response);
             setComments(response.data);
         });
 
         // request recommendations
-        api.get("/videos/recommendations").then(response => {
+        const p4 = api.get("/videos/recommendations").then(response => {
             console.log(response);
             const videos = response.data;
             // remove current video from recommendations
             const filteredVideos = videos.filter(video => video._id !== videoid);
             setRecommendations(response.data);
         })
-
+        const promises = [p1, p2, p3, p4];
+        Promise.all(promises).finally(() => {setLoading(false);});
     }, [])
 
     function likeVideo(){

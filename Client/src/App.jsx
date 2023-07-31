@@ -15,6 +15,7 @@ import ResetPassword from "./Components/resetPassword/resetPassword.jsx";
 import History from "./Components/History/History.jsx";
 import Playlists from "./Components/Playlist/Playlists.jsx";
 import Playlist from './Components/Playlist/Playlist.jsx'
+import LoadingOverlay from './Components/Loading/LoadingOverlay.jsx'
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false)
     const [userName, setUserName] = useState('')
@@ -87,7 +88,9 @@ function App() {
     }
 
     return (
+
         <BrowserRouter>
+        <LoadingOverlay/>
             {getNav()}
             <Routes>
                 <Route exact path="/" element={ isLoggedIn ? <Navigate to="/Profile" /> : <Navigate to="/Login" />}>
