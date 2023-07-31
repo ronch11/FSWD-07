@@ -21,11 +21,24 @@ function History() {
         }
         );
     }, [])
-  return (
-    <div>
-      <VideoList videos={videos} detailsIncluded={false}/>
-    </div>
-  )
+
+    const handleDeleteHistory = (e) => {
+        e.preventDefault();
+        api.delete('/history/').then((response) => {
+            setVideos([])
+        }
+        ).catch((error) => {
+            console.log(error)
+        }
+        );
+    }
+    return (
+      <div>
+        <h1>History</h1>
+        <button onClick={handleDeleteHistory}>Delete history</button>
+        <VideoList videos={videos} detailsIncluded={false}/>
+      </div>
+    )
 }
 
 export default History
