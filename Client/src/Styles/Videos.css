@@ -1,69 +1,68 @@
 /* Videos.css */
-
 .video-list {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
-  padding: 1em;
+  justify-content: center;
+  margin-top: 20px;
 }
 
-.video-item {
-  flex-basis: 48%;
-  margin: 1em;
-  background-color: #f9f9f9;
-  padding: 1em;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+.order-vidoes {
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
   border-radius: 5px;
+  width: calc(33.33% - 20px);
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.video-item h2 {
-  text-align: center;
-  color: #333;
-  margin-bottom: 0.5em;
+.order-vidoes:hover {
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.video-item video {
+/* Style for VideoButton component (assuming it has a fixed width and height) */
+.VideoButton {
   width: 100%;
-  height: auto;
-  border-radius: 5px;
-}
-
-.video-item p {
-  color: #666;
-  font-size: 0.8em;
-  margin-bottom: 1em;
+  height: 180px; /* Adjust the height as needed */
+  object-fit: cover;
+  border-radius: 5px 5px 0 0;
 }
 
 .Edit-Bottom,
 .Delete-Bottom {
-  padding: 8px 16px;
+  display: block;
+  width: 100%;
+  padding: 8px;
   border: none;
   border-radius: 5px;
+  font-size: 14px;
   cursor: pointer;
-  font-weight: bold;
-  text-transform: uppercase;
+  transition: background-color 0.3s ease;
 }
 
 .Edit-Bottom {
-  background-color: #008000;
+  background-color: #4caf50;
   color: #fff;
-  margin-right: 0.5em;
 }
 
 .Delete-Bottom {
-  background-color: #ff3333;
+  background-color: #f44336;
   color: #fff;
+  margin-top: 5px;
 }
 
-.order-vidoes {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.Edit-Bottom:hover,
+.Delete-Bottom:hover {
+  background-color: #45a049;
 }
 
-/* Responsive Design */
+@media screen and (max-width: 1024px) {
+  .order-vidoes {
+    width: calc(50% - 20px);
+  }
+}
+
 @media screen and (max-width: 768px) {
-  .video-item {
-    flex-basis: 100%;
+  .order-vidoes {
+    width: 100%;
   }
 }
