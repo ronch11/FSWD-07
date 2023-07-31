@@ -37,7 +37,7 @@ function VideoList({videos, detailsIncluded}) {
     }
     return (
         <div>
-        <ul>
+        <ul style={{ listStyle: 'none' }}>
             {videosDetails.map((video, index) => {
                 return <li key={index}>
                         <VideoButton video={video} baseurl={api.defaults.baseURL}/>

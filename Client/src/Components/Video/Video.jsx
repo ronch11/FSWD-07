@@ -6,7 +6,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import Comment from '../Comments/Comment.jsx';
 import CommentSubmitter from '../Comments/CommentSubmitter.jsx';
 import '../../Styles/Video.css';
-
+import VideoList from './VideoList.jsx';
 
 
 
@@ -20,20 +20,11 @@ function Video() {
     const [likes, setLikes] = useState(0);
     const [comments, setComments] = useState([]);
     const [videoUrl, setVideoUrl] = useState('');
+    const [recommendations, setRecommendations] = useState([]);
     console.log(videoid);
+    const user = useUser();
 
-
-    const getVideos = async () => {
-        api.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('access_token');
-        return api.get(`/videos/postedBy/${user._id}`)
-            .then(response => {console.log(response.data); setVideos(response.data)})
-            .catch(err => console.error(err));
-    }
-    useEffect(() => {
-        getVideos();
-    }, []);
-
-
+    // get video, details, recommendations and comments
     useEffect(() => {
         // set access token
         api.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('access_token');
@@ -71,7 +62,17 @@ function Video() {
         api.get('/comments/' + videoid).then(response => {
             console.log(response);
             setComments(response.data);
+        });
+
+        // request recommendations
+        api.get("/videos/recommendations").then(response => {
+            console.log(response);
+            const videos = response.data;
+            // remove current video from recommendations
+            const filteredVideos = videos.filter(video => video._id !== videoid);
+            setRecommendations(response.data);
         })
+
     }, [])
 
     function likeVideo(){
@@ -172,10 +173,7 @@ function Video() {
   return (
       <div>
           <div className="more-video">
-                  {/* Place your elements here */}
-              {/*<VideoComponent videos={videos} getVideos={getVideos} />*/}
-              {/*<VideoUploader getVideos={getVideos}/>*/}
-                  {/* Add more elements as needed */}
+                  <VideoList videos={recommendations} detailsIncluded={true} />
           </div>
 
           {/* Video player and details */}
