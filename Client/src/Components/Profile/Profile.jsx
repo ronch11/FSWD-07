@@ -38,7 +38,7 @@ const Profile = () => {
             <h1>Profile</h1>
             <h2>{user.username}</h2>
             <VideoUploader getVideos={getVideos}/>
-            <VideoList videos={videos} detailsIncluded={false} allowDelete={true} allowEdit={true} onVideoDeleted={getVideos} />
+            <VideoList videos={videos} detailsIncluded={false} allowDelete={true} allowEdit={true} onVideoDeleted={handleVideoDeleted} />
         </div>
     );
 }
