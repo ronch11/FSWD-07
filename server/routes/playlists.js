@@ -55,3 +55,25 @@ router.post('/', async (req, res) => {
     if(!result) return res.status(500).json("Failed to create playlist");
     return res.status(201).json(result);
 });
+
+router.post('/add/:playlistId', async (req, res) => {
+    const { err, user } = await authCheck(req);
+    if(err) return res.status(401).json(err);
+    if(!user) return res.status(404).json("User not found");
+
+    const bodySchema = Joi.object({
+        videos : Joi.array().items(Joi.string().required()).required()
+    });
+    
+    const { error, value } = bodySchema.validate(req.body);
+    if(error) return res.status(400).json(error.details[0].message);
+    const { videos } = value;
+    const fullVideos = await Videos.getVideosByIds(videos);
+    fullVideos.forEach((video) => {
+        if(video.visibility === 'private' && !video.userId.equals(user._id)) return res.status(403).json("Forbidden");
+    });
+    const result = await Playlists.addToPlaylist(req.params.playlistId, videos);
+    if(!result) return res.status(500).json("Failed to add videos to playlist");
+    return res.status(200).json(result);
+});
+
