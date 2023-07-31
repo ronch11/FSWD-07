@@ -4,7 +4,7 @@ import { useEffect, useContext, useState } from 'react';
 import ApiContext from '../../ApiContext.jsx';
 import VideoButton from '../Video/VideoButton.jsx';
 import '../../Styles/Videos.css';
-function VideoList({videos, detailsIncluded, allowEdit, allowDelete, onVideoDeleted }) {
+function VideoList({videos, detailsIncluded, EditVideo, DeleteVideo, onVideoDeleted }) {
     // structure of the video object: [...video ids]
     // useEffect(() => {
     //     //Get videos details from the server
@@ -38,30 +38,14 @@ function VideoList({videos, detailsIncluded, allowEdit, allowDelete, onVideoDele
         }, [videos])
     }
 
-    const editVideo = async (e) => {
-        navigate('/editvideo/' + e.target.value);
-    }
-  
-    const deleteVideo = async (e) => {
-        let confirmAction = confirm("Are you sure you want to delete this video?");
-        if (confirmAction){
-            api.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('access_token');
-            return api.delete(`/videos/delete/${e.target.value}`)
-            .then(response => {onVideoDeleted(e.target.value);})
-            .catch(err => console.error(err));
-        }else{
-            return;
-        }
-    }
-
     return (
         <div className="video-list">
         <ul style={{ listStyle: 'none' }}>
             {videosDetails.map((video, index) => {
                 return <li className="order-vidoes" key={index}>
                         <VideoButton video={video} baseurl={api.defaults.baseURL}/>
-                        {allowEdit ? <button className="Edit-Bottom" value={video._id} onClick={editVideo}>Edit</button> : ''}
-                        {allowDelete ? <button className="Delete-Bottom" value={video._id} onClick={deleteVideo}>Delete</button> : ''}
+                        {EditVideo ? <button className="Edit-Bottom" value={video._id} onClick={EditVideo}>Edit</button> : ''}
+                        {DeleteVideo ? <button className="Delete-Bottom" value={video._id} onClick={DeleteVideo}>Delete</button> : ''}
                     </li>
             })}
         </ul>

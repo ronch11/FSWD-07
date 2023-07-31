@@ -26,7 +26,24 @@ const Profile = () => {
     }
 
     const handleVideoDeleted = (videoId) => {
-        setVideos(videos.filter((video) => video._id !== videoId));
+        
+    }
+
+    const editVideo = async (e) => {
+        navigate('/editvideo/' + e.target.value);
+    }
+  
+    const deleteVideo = async (e) => {
+        const videoId = e.target.value;
+        let confirmAction = confirm("Are you sure you want to delete this video?");
+        if (confirmAction){
+            api.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('access_token');
+            return api.delete(`/videos/delete/${e.target.value}`)
+            .then(response => {setVideos(videos.filter((video) => video._id !== videoId));})
+            .catch(err => console.error(err));
+        }else{
+            return;
+        }
     }
 
     useEffect(() => {
@@ -38,7 +55,7 @@ const Profile = () => {
             <h1>Profile</h1>
             <h2>{user.username}</h2>
             <VideoUploader getVideos={getVideos}/>
-            <VideoList videos={videos} detailsIncluded={false} allowDelete={true} allowEdit={true} onVideoDeleted={handleVideoDeleted} />
+            <VideoList videos={videos} detailsIncluded={false} EditVideo={editVideo} DeleteVideo={deleteVideo}/>
         </div>
     );
 }
