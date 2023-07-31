@@ -173,7 +173,7 @@ function Video() {
   return (
       <div>
           <div className="more-video">
-                  <VideoList videos={recommendations} detailsIncluded={true} />
+                <VideoList videos={recommendations} detailsIncluded={true} />
           </div>
 
           {/* Video player and details */}
