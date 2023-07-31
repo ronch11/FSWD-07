@@ -34,10 +34,6 @@ function Auth({onLogIn, isLoggedIn}) {
       onLogIn(user);
     }
   
-    // const handleSubmitRegister = (event) => {
-    //   console.log('Register');
-    // };
-  
     const handleRegister = (event) => {
       console.log('Register');
       let container = document.querySelector(".container");
