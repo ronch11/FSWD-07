@@ -43,9 +43,9 @@ module.exports.getVideoById = async (videoId) => {
 module.exports.getVideosByIds = async (videoIds) => {
     try{
         const objVideoIds = videoIds.map(id => new ObjectId(id))
-        let videos = await videos.find({_id : {$in : objVideoIds}}).toArray()
-        if (!videos) return null
-        return videos
+        let thevideos = await videos.find({_id : {$in : objVideoIds}}).toArray()
+        if (!thevideos) return null
+        return thevideos
     }
     catch(err){
         if (err instanceof BSONError){
