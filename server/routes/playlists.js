@@ -68,6 +68,9 @@ router.post('/add/:playlistId', async (req, res) => {
     const { error, value } = bodySchema.validate(req.body);
     if(error) return res.status(400).json(error.details[0].message);
     const { videos } = value;
+    const playlist = await Playlists.getPlaylist(req.params.playlistId);
+    if(!playlist) return res.status(404).json("Playlist not found");
+    if(!playlist.userId.equals(user._id)) return res.status(403).json("Forbidden");
     const fullVideos = await Videos.getVideosByIds(videos);
     fullVideos.forEach((video) => {
         if(video.visibility === 'private' && !video.userId.equals(user._id)) return res.status(403).json("Forbidden");
@@ -77,3 +80,17 @@ router.post('/add/:playlistId', async (req, res) => {
     return res.status(200).json(result);
 });
 
+router.delete('/remove/:playlistId/:videoId', async (req, res) => {
+    const videoId = req.params.videoId;
+    const playlistId = req.params.playlistId;
+
+    const { err, user } = await authCheck(req);
+    if(err) return res.status(401).json(err);
+    if(!user) return res.status(404).json("User not found");
+    const playlist = await Playlists.getPlaylist(playlistId);
+    if(!playlist) return res.status(404).json("Playlist not found");
+    if(!playlist.userId.equals(user._id)) return res.status(403).json("Forbidden");
+    const result = await Playlists.removeFromPlaylist(playlistId, [videoId]);
+    if(!result) return res.status(500).json("Failed to remove video from playlist");
+    return res.status(200).json(result);
+});
