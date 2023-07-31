@@ -4,6 +4,7 @@ import { useEffect, useState, useContext } from "react";
 import ApiContext from "../../ApiContext.jsx";
 import VideoButton from '../Video/VideoButton.jsx';
 import '../../Styles/Home.css';
+import {Col, Container, Row} from "reactstrap";
 
 
 
@@ -38,18 +39,21 @@ function Home() {
   return (
       <>
         <h1>Home</h1>
+          <section>
+              <Container>
+                  <Row>
+                      videos?.map((video) => (
+                      <Col lg="3" md="2" sm="6" className="mb-4" key={item.id}>
+                      return <VideoButton video={video} baseurl={api.defaults.baseURL} />
+                      </Col>
+                      ))}
+                  </Row>
+              </Container>
+          </section>
 
+      </>
 
-    <div className= "homeStyle">
-      {
-            videos.map(video => {
-                return <VideoButton video={video} baseurl={api.defaults.baseURL} />
-            })
-      }
-    </div>
-</>
-
-  )
+  );
 
 }
 
