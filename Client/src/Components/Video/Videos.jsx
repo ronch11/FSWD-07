@@ -16,7 +16,7 @@ function VideoComponent({videos, getVideos}) {
     }
 
     const deleteVideo = async (e) => {
-      let confirmAction = confirm("Are you sure to delete this video?");
+      let confirmAction = confirm("Are you sure you want to delete this video?");
       if (confirmAction){
         api.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('access_token');
         return api.delete(`/videos/delete/${e.target.value}`)
