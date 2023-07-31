@@ -3,6 +3,7 @@ import {useNavigate} from 'react-router-dom'
 import { useEffect, useContext, useState } from 'react';
 import ApiContext from '../../ApiContext.jsx';
 import VideoButton from '../Video/VideoButton.jsx';
+import '../../Styles/Videos.css';
 function VideoList({videos, detailsIncluded, allowEdit, allowDelete, onVideoDeleted }) {
     // structure of the video object: [...video ids]
     // useEffect(() => {
@@ -54,10 +55,10 @@ function VideoList({videos, detailsIncluded, allowEdit, allowDelete, onVideoDele
     }
 
     return (
-        <div>
+        <div className="video-list">
         <ul style={{ listStyle: 'none' }}>
             {videosDetails.map((video, index) => {
-                return <li key={index}>
+                return <li className="order-vidoes" key={index}>
                         <VideoButton video={video} baseurl={api.defaults.baseURL}/>
                         {allowEdit ? <button className="Edit-Bottom" value={video._id} onClick={editVideo}>Edit</button> : ''}
                         {allowDelete ? <button className="Delete-Bottom" value={video._id} onClick={deleteVideo}>Delete</button> : ''}

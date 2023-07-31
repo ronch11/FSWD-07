@@ -51,7 +51,7 @@ function EditVideo() {
     <>
 
     <div className='video-edite'>
-    <img width={320} src={'/videos/thumb/' + videoid}></img>
+    <img width={320} src={api.defaults.baseURL + '/videos/thumb/' + videoid}></img>
 
     </div>
 
