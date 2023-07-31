@@ -1,11 +1,13 @@
 import React from 'react'
 import { useState, useContext } from 'react'
 import ApiContext from '../../ApiContext';
+import { useLoadingUpdate } from '../../LoadingContext';
 function Login({ onSuccess, onFail }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
   const [loginSuccess, setLoginSuccess] = useState(false); // New state for login success
+  const setLoading = useLoadingUpdate();
   const api = useContext(ApiContext);
 
   const handleSubmitLogin = async (event) => {
@@ -22,11 +24,12 @@ function Login({ onSuccess, onFail }) {
     }
 
     try {
+      setLoading(true);
       const response = await api.post("/users/login", {
         username: username,
         password: password
       });
-
+      setLoading(false);
       if (response.status === 200) {
         console.log(response.data);
         console.log(response);

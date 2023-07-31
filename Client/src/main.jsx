@@ -4,13 +4,15 @@ import App from "./App.jsx";
 import { BrowserRouter } from "react-router-dom";
 import { ApiProvider } from './ApiContext'
 import UserProvider from './UserContext'
+import LoadingProvider from "./LoadingContext.jsx";
 ReactDOM.createRoot(document.getElementById("root")).render(
     <React.StrictMode>
             <UserProvider>
-                <ApiProvider>
-
-                    <App />
-                </ApiProvider>
+                <LoadingProvider>
+                    <ApiProvider>
+                        <App />
+                    </ApiProvider>
+                </LoadingProvider>
             </UserProvider>
     </React.StrictMode>
 );
