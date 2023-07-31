@@ -1,23 +1,30 @@
-import React from 'react'
-import { useNavigate } from "react-router-dom";
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import '../../Styles/VideoButton.css'; // Import the CSS file
 
-function VideoButton({video, baseurl}) {
-    const navigate = useNavigate();
-    const handleClick = (e) => {
-        e.preventDefault();
-        console.log(video._id);
-        // redirect to video id page
-        navigate(`/video/${video._id}`);
-    }
-    return (
-        <div>
-        <button onClick={handleClick}>
-                        <p>{video.title}</p>
-                        <img width={320} src={baseurl + '/videos/thumb/' + video._id} controls></img>
-                        <p>{video.userId} | {video.views} | {video.date} </p>
-                    </button>
+function VideoButton({ video, baseurl }) {
+  const navigate = useNavigate();
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    navigate(`/video/${video._id}`);
+  };
+
+  return (
+    <button className="video-button" onClick={handleClick}>
+      <div>
+        <img className="video-thumbnail" src={`${baseurl}/videos/thumb/${video._id}`} alt="Video Thumbnail" />
+      </div>
+      <div className="video-info">
+        <p className="video-title">{video.title}</p>
+        <div className="video-metadata">
+          <span className="video-metadata-item">{video.userId}</span>
+          <span className="video-metadata-item">{video.views} views</span>
+          <span className="video-metadata-item">{video.date}</span>
         </div>
-    )
+      </div>
+    </button>
+  );
 }
 
-export default VideoButton
+export default VideoButton;

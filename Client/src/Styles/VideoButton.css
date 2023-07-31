@@ -1,0 +1,55 @@
+/* VideoButton.css */
+.video-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    background-color: #f0f0f0;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .video-button:hover {
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .video-thumbnail {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+  }
+  
+  .video-info {
+    font-size: 14px;
+    margin-top: 10px;
+    color: #777;
+  }
+  
+  /* Styles for Video title */
+  .video-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  /* Styles for Video metadata (user, views, date) */
+  .video-metadata {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  /* Style for individual metadata elements */
+  .video-metadata-item {
+    margin-right: 10px;
+  }
+  
+  /* Adjust the thumbnail size for larger screens if needed */
+  @media screen and (min-width: 768px) {
+    .video-thumbnail {
+      width: 320px;
+    }
+  }
+  
