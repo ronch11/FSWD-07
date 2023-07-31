@@ -1,6 +1,8 @@
 import React from 'react'
 import { useState, useContext } from 'react'
 import ApiContext from '../../ApiContext';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; 
 function Login({ onSuccess, onFail }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -72,8 +74,8 @@ function Login({ onSuccess, onFail }) {
         />
       </div>
       {loginError && <div style={{ color: 'red' }}>{loginError}</div>}
-      <button className={`btn solid ${loginSuccess ? 'green' : ''}`} type="submit" onClick={handleSubmitLogin}>Sign In</button>
-    </form>
+      <button className="btn solid" type="submit" onClick={handleSubmitLogin}>Sign In</button>    
+      </form>
   );
 }
 

@@ -95,7 +95,7 @@ function Register({onSuccess, onFail}) {
                 <div className="input-field">
                     <i className="fas fa-lock" />
                     <input
-                        ype="text"
+                        type="text"
                         id="firstName"
                         value={firstName}
                         placeholder='First Name'
