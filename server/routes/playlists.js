@@ -15,6 +15,16 @@ router.get('/', async (req, res) => {
     return res.status(200).json(playlists);
 });
 
+router.get('/withVideo/:videoId', async (req, res) => {
+    const { err, user } = await authCheck(req);
+    if(err) return res.status(401).json(err)
+    if(!user) return res.status(404).json("User not found")
+    const playlists = (await Playlists.getPlaylists(user._id))
+    .filter((playlist) => playlist.videos.includes(req.params.videoId))
+    .map((playlist) => { return { _id : playlist._id, name : playlist.name, thumbVid : playlist.videos[0] } });
+    return res.status(200).json(playlists);
+});
+
 router.get('/light/:playlistId', async (req, res) => {
     const { err, user } = await authCheck(req);
     if(err) return res.status(401).json(err)
@@ -54,6 +64,18 @@ router.post('/', async (req, res) => {
     if(result === null) return res.status(409).json("Playlist already exists");
     if(!result) return res.status(500).json("Failed to create playlist");
     return res.status(201).json(result);
+});
+
+router.delete('/:playlistId', async (req, res) => {
+    const { err, user } = await authCheck(req);
+    if(err) return res.status(401).json(err);
+    if(!user) return res.status(404).json("User not found");
+    const playlist = await Playlists.getPlaylist(req.params.playlistId);
+    if(!playlist) return res.status(404).json("Playlist not found");
+    if(!playlist.userId.equals(user._id)) return res.status(403).json("Forbidden");
+    const result = await Playlists.deletePlaylist(req.params.playlistId);
+    if(!result) return res.status(500).json("Failed to delete playlist");
+    return res.status(200).json(result);
 });
 
 router.post('/add/:playlistId', async (req, res) => {

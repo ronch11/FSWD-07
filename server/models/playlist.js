@@ -31,31 +31,32 @@ module.exports.createPlaylist = async (userId, playlistName) => {
     const playlist = await module.exports.getPlaylistByIdAndName(userId, playlistName);
     //TODO: take care of case playlist exists
     if(playlist) return null;
-    const result = await playlists.insertOne({
-        userId: new ObjectId(userId),
-        name: playlistName,
-        videos: []
-    });
+    const newPlaylist = { userId: new ObjectId(userId), name: playlistName, videos: [] }
+    const result = await playlists.insertOne(newPlaylist);
     if (result.acknowledged) {
-        playlist._id = result.insertedId;
-        return playlist;
+        newPlaylist._id = result.insertedId;
+        return newPlaylist;
     } else {
         return false;
     }
 }
 
 module.exports.addToPlaylist = async (playlistId, newVids) => {
-    const playlist = module.exports.getPlaylist(new ObjectId(playlistId))
-    const videos = playlist.videos
-    videos.push(...newVids)
-    return await playlists.updateOne({ _id: new ObjectId(playlistId) }, { $set: { videos: videos } })
+    const playlist = await module.exports.getPlaylist(new ObjectId(playlistId))
+    console.log(playlist)
+    const thevideos = playlist.videos
+    thevideos.push(...newVids)
+    const result = await playlists.updateOne({ _id: new ObjectId(playlistId) }, { $set: { videos: thevideos } })
+    console.log(result)
+    return result.modifiedCount > 0;
 }
 
 module.exports.removeFromPlaylist = async (playlistId, vidsToRemove) => {
-    const playlist = module.exports.getPlaylist(new ObjectId(playlistId))
-    const videos = playlist.videos
-    const newVideos = videos.filter(vid => !vidsToRemove.includes(vid))
-    return await playlists.updateOne({ _id: new ObjectId(playlistId) }, { $set: { videos: newVideos } })
+    const playlist = await module.exports.getPlaylist(new ObjectId(playlistId))
+    const thevideos = playlist.videos
+    const newVideos = thevideos.filter(vid => !(vidsToRemove.includes(vid)))
+    const result = await playlists.updateOne({ _id: new ObjectId(playlistId) }, { $set: { videos: newVideos } })
+    return result.modifiedCount > 0;
 }
 
 module.exports.clearPlaylist = async (playlistId) => {

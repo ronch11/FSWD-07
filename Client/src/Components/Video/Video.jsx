@@ -7,7 +7,7 @@ import Comment from '../Comments/Comment.jsx';
 import CommentSubmitter from '../Comments/CommentSubmitter.jsx';
 import '../../Styles/Video.css';
 import VideoList from './VideoList.jsx';
-
+import PlaylistAdder from './PlaylistAdder.jsx';
 
 
 function Video() {
@@ -153,7 +153,9 @@ function Video() {
                     <p className="channel-name">{videoDetails.channel.name}</p>
                     <p className="view-count">Views: {videoDetails.views}</p>
 
-
+                    <div className="playlist-adder">
+                        <PlaylistAdder videoId={videoid} />
+                    </div>
 
                     <div>
                         <p className="create-Comments">Comments</p>
