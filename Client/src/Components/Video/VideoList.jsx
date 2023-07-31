@@ -11,6 +11,7 @@ function VideoList({videos, detailsIncluded, allowEdit, allowDelete, onVideoDele
     const api = useContext(ApiContext);
     if(detailsIncluded === undefined && videos.length > 0 && !videos[0].title) detailsIncluded = false;
     const [videosDetails, setVideosDetails] = useState(videos);
+    const navigate = useNavigate();
     useEffect(() => {
         setVideosDetails(videos);
     }, [videos])
