@@ -40,6 +40,21 @@ module.exports.getVideoById = async (videoId) => {
     
 }
 
+module.exports.getVideosByIds = async (videoIds) => {
+    try{
+        const objVideoIds = videoIds.map(id => new ObjectId(id))
+        let videos = await videos.find({_id : {$in : objVideoIds}}).toArray()
+        if (!videos) return null
+        return videos
+    }
+    catch(err){
+        if (err instanceof BSONError){
+            return null
+        }
+        throw err;
+    }
+};
+
 module.exports.updateVideo = async (videoId, changes) => {
     return await videos.updateOne({_id : new ObjectId(videoId)}, {$set : changes})
 }

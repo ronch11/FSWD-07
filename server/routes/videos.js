@@ -237,6 +237,33 @@ router.get('/details/:videoId', async (req, res) => {
     }
 });
 
+router.post('/details', async (req, res) => {
+  try
+    {
+        const {error, user} = await authCheck(req, false);
+        if (error) return res.status(403).json(error);
+
+        const bodySchema = Joi.object({
+          videoIds : Joi.array().items(Joi.string().required()).required()
+        });
+
+        const { error: bodyError, value } = bodySchema.validate(req.body)
+        if(bodyError) return res.status(400).json(bodyError.details[0].message)
+        const { videoIds } = value;
+
+        const videos = await Videos.getVideosByIds(videoIds)
+        if(!videos) return res.status(404).json("Videos not found")
+        videos.filter((video) => video.visibility !== 'private' || (user && video.userId.toString() !== user._id.toString()))
+        if (videos.length === 0) return res.status(404).json("Videos not found")
+        res.status(200).json(videos)
+    }
+    catch (error){
+        console.log(error)
+        res.status(500).json()
+    }
+
+});
+
 router.post('/react/:videoId', async (req, res) => {
     const {error, user} = await authCheck(req)
     if(error) return res.status(401).json(error)
