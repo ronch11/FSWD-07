@@ -29,18 +29,22 @@ function History() {
 
     const handleDeleteHistory = (e) => {
         e.preventDefault();
+        setLoading(true);
         api.delete('/history/').then((response) => {
             setVideos([])
         }
         ).catch((error) => {
             console.log(error)
         }
-        );
+        ).finally(() => {
+            setLoading(false);
+        });
     }
     return (
       <div>
         <h1>History</h1>
         <button onClick={handleDeleteHistory}>Delete history</button>
+        {videos.length === 0 && <h3>No history, whatever you'll watch will pop up here!</h3>}
         <VideoList videos={videos} detailsIncluded={false}/>
       </div>
     )
