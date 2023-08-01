@@ -20,21 +20,30 @@ function VideoList({videos, detailsIncluded, EditVideo, DeleteVideo, onVideoDele
     console.log('vid list: ', videosDetails)
     if (!detailsIncluded) {
         useEffect(() => {
+            if (videos.length === 0) return;
             //Get videos details from the server
             const token = localStorage.getItem('access_token')
             // set the authorization header
             api.defaults.headers.common['Authorization'] = `Bearer ${token}`
-            const promises = videos.map((video) => {
-                return api.get('/videos/details/' + video._id)
-            })
-            Promise.all(promises).then((responses) => {
-                console.log(responses)
-                setVideosDetails(responses.map((response) => {
-                    return response.data
-                }))
+            const vidIds = videos.map((video) => video._id);
+            api.post('/videos/details', { videoIds: vidIds }).then((response) => {
+                console.log(response.data)
+                setVideosDetails(response.data)
             }).catch((error) => {
                 console.log(error)
-            })
+            });
+
+            // const promises = videos.map((video) => {
+            //     return api.get('/videos/details/' + video._id)
+            // })
+            // Promise.all(promises).then((responses) => {
+            //     console.log(responses)
+            //     setVideosDetails(responses.map((response) => {
+            //         return response.data
+            //     }))
+            // }).catch((error) => {
+            //     console.log(error)
+            // })
         }, [videos])
     }
 
