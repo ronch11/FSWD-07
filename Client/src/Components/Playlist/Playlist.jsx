@@ -45,11 +45,12 @@ function Playlist() {
             return;
         }
     }
-    const removeFromPlaylist = (playlistId) => {
+    const removeFromPlaylist = (videoId) => {
         api.delete(`/playlists/remove/${playlistId}/${videoId}`).then((response) => {
             console.log(response.data)
-            setSelectedPlaylists(selectedPlaylists.filter((id) => {
-                return id !== playlistId
+            setVideos(videos.filter((video) => {
+                console.log(video, playlistId)
+                return video._id !== videoId;
             }))
         }
         ).catch((error) => {
@@ -60,7 +61,7 @@ function Playlist() {
     const handleRemoveFromPlaylist = (e) => {
         e.preventDefault();
         const videoId = e.target.value;
-        removeFromPlaylist(playlistId, videoId);
+        removeFromPlaylist(videoId);
     }
 
     return (
@@ -71,7 +72,7 @@ function Playlist() {
                 videos.length > 0 ? '' : <h3>The Playlist is empty!</h3>
             }
             <button onClick={handleDeletePlaylist}>Delete Playlist</button>
-            <VideoList videos={videos} detailsIncluded={false} DeleteVideo={handleDeletePlaylist} />   
+            <VideoList videos={videos} detailsIncluded={false} DeleteVideo={handleRemoveFromPlaylist} />   
         </div>
     )
 }
