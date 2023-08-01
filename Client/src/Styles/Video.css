@@ -7,7 +7,7 @@
 .video-item {
   width: 100%;
   height: auto;
-  max-width: 1100px;
+  max-width: 1200px;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -138,9 +138,4 @@ new-componnet {
   }
 }
 
-/* Updated styles for .more-video */
-.more-video {
-  position: absolute;
-  right: 10px;
-  top: 50px; /* Adjust the top property to move the div up slightly */
-}
+

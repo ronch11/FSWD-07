@@ -148,8 +148,6 @@ function Video() {
         if (videoDetails){
             return (
                 <div className="view-video">
-
-
                     <div className= "title-like">
                     
                     <button className = "like-bottom" onClick={reaction === 'like' ? clearReaction : likeVideo}>Likes: {likes}</button>
@@ -157,16 +155,12 @@ function Video() {
                     <button className="share-bottom" onClick={copyLink}>Share</button>
                     <p className="video-name">{videoDetails.title}</p>
                     </div>
-
-
-                    
-                    
                     <p className="channel-name">{videoDetails.channel.name}</p>
-                    <p className="view-count">Views: {videoDetails.views}</p>
+                    <p className="view-count">Views: {videoDetails.views}</p> 
 
-                    {/* <div className="playlist-adder">
+                    <div className="playlist-adder">
                         <PlaylistAdder videoId={videoid} />
-                    </div> */}
+                    </div>
 
                     <div>
                         <p className="create-Comments">Comments</p>
@@ -178,27 +172,24 @@ function Video() {
                             })}
                         </ul>
                     </div>
+                    <div className="more-video">
+                        <VideoList videos={recommendations} detailsIncluded={true} />
+                     </div>
                 </div>
             )
         }
     }
 
-  return (
-    <div className='video-page-container'>
-    {/* <div className="more-video">
-      <VideoList videos={recommendations} detailsIncluded={true} />
-    </div> */}
-  
-    {/* Video player and details */}
-    <div className="video-details-container">
-      <div className="playlist-adder">
-        <PlaylistAdder videoId={videoid} />
-      </div>
-      <video className="video-item" src={videoUrl} controls></video>
-      {detailsElem()}
-    </div>
-  </div>
-  )
+    return (
+        <div className='video-page-container'>
+          {/* Video player and details */}
+          <div className="video-details-container">
+            
+            <video className="video-item" src={videoUrl} controls></video>
+            {detailsElem()}
+          </div>
+        </div>
+      )
 }
 
 export default Video
