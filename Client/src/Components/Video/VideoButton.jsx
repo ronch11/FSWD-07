@@ -19,7 +19,7 @@ function VideoButton({ video, baseurl }) {
         <p className="video-title">{video.title}</p>
         <div className="video-metadata">
           {video.available !== undefined && !video.available && <span style={{color: 'red'}}>Not available</span>}
-          <span className="video-metadata-item">{video.userId}</span>
+          <span className="video-metadata-item">{video.channel && video.channel.name ? video.channel.name : ''}</span>
           <span className="video-metadata-item">{video.views} views</span>
           <span className="video-metadata-item">{video.date}</span>
         </div>
