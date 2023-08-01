@@ -55,7 +55,7 @@ const Profile = () => {
             <h1>Profile</h1>
             <h2>{user.username}</h2>
             <VideoUploader getVideos={getVideos}/>
-            <VideoList videos={videos} detailsIncluded={false} EditVideo={editVideo} DeleteVideo={deleteVideo}/>
+            <VideoList videos={videos} detailsIncluded={true} EditVideo={editVideo} DeleteVideo={deleteVideo}/>
         </div>
     );
 }
