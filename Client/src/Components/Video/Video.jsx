@@ -21,6 +21,7 @@ function Video() {
     const [comments, setComments] = useState([]);
     const [videoUrl, setVideoUrl] = useState('');
     const [recommendations, setRecommendations] = useState([]);
+    const [viewCommentSection, setViewCommentSection] = useState(false);
     const setLoading = useLoadingUpdate();
     console.log(videoid);
     const user = useUser();
@@ -167,7 +168,8 @@ function Video() {
                     {/* <div className="playlist-adder">
                         <PlaylistAdder videoId={videoid} />
                     </div> */}
-
+                    <button className="comment-button" onClick={() => {setViewCommentSection(!viewCommentSection)}}>Comments</button>
+                    {viewCommentSection ? (
                     <div>
                         <p className="create-Comments">Comments</p>
                         <CommentSubmitter videoid={videoid} addComment={(comment) => {setComments([...comments, comment])}} />
@@ -177,7 +179,7 @@ function Video() {
                                 return <li className="comment"><Comment comment={comment}/></li>
                             })}
                         </ul>
-                    </div>
+                    </div>) : ''}
                 </div>
             )
         }
