@@ -98,9 +98,9 @@ router.get('/watch/:videoId', async (req, res) => {
         const lastViewTime = viewsMap[`${userIp}:${req.params.videoId}`] || 0; 
 
         if (currentTime - lastViewTime > 1000 * 10) { // if difference is more than 10 second
-            await Videos.addView(req.params.videoId);
-            viewsMap[`${userIp}:${req.params.videoId}`] = currentTime; // jot down the time
-            await Users.watchVideo(video.userId, video._id, new Date());
+          viewsMap[`${userIp}:${req.params.videoId}`] = currentTime; // jot down the time
+          const promises = [Videos.addView(req.params.videoId), Users.watchVideo(video.userId, video._id, new Date())]
+          Promise.all(promises).then(() => console.log('View added successfully')).catch((err) => console.error(err))  
         }
 
         // stream the video
