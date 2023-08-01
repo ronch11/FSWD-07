@@ -386,7 +386,13 @@ router.get('/recommendations', async (req, res) => {
         videos = await Videos.getMostViewed(vidsAmount, onlyPublic=false)
       }
       const vids = videos.filter((video) => checkMediaAvailability(video.userId, video._id, video.fileType))
-      res.status(200).json(vids)
+      console.log(vids)
+      const users = await Users.getUsersByIds(vids.map((video) => video.userId))
+      const vidsWithUsers = vids.map((video) => {
+        const user = users.find((user) => user._id.toString() === video.userId.toString())
+        return {...video, channel : {name : user.username}}
+      })
+      res.status(200).json(vidsWithUsers)
       //res.status(200).json(videos)
     }
     catch (error){

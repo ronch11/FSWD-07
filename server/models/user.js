@@ -30,6 +30,19 @@ module.exports.getUserById = async (userId) => {
     }
 }
 
+module.exports.getUsersByIds = async (userIds) => {
+    try{
+        const newIds = userIds.map(id => new ObjectId(id))
+        return await users.find({_id : {$in : newIds}}).toArray()
+    }
+    catch(err){
+        if (err instanceof BSONError){
+            return []
+        }
+        throw err;
+    }
+}
+
 module.exports.createUser = async (username, password, firstName, lastName, email, phone, isAdmin=false) => {
     const user = {username, firstName, lastName, password, email, phone, isAdmin, likeTags : {}}
     const status = await users.insertOne(user)
