@@ -19,6 +19,20 @@ function getMediaFilePath(userId, videoId, fileType) {
     return __dirname + '/../uploads/' + userId + '/' + videoId + '.' + fileType;
 }
 
+function checkMediaAvailability(userId, videoId, fileType) {
+    const filePath = getMediaFilePath(userId, videoId, fileType);
+    // check if file exists
+    try {
+      if (fs.existsSync(filePath)) {
+        return true;
+      }
+      return false;
+    } catch(err) {
+      console.error(err)
+      return false;
+    }
+}
+
 async function generateThumbnail(videoPath, thumbnailPath) {
   const folder =  path.dirname(thumbnailPath);
   const filename = path.basename(thumbnailPath);
@@ -213,7 +227,6 @@ router.get('/details/:videoId', async (req, res) => {
         const promises = []
         if (user){
           promises.push(Reactions.getReaction(req.params.videoId, user._id).then((reaction) => {
-            console.log(reaction)
             if (reaction) video.reactions.user = reaction.reaction;
           }))
         }
@@ -307,10 +320,14 @@ router.get('/postedBy/:userId', async (req, res) => {
         const {error, user} = await authCheck(req, false);
         if(error) return res.status(403).json(error);
         let videos = await Videos.getVideosBy(req.params.userId)
-        if(!user || user._id.toString() !== req.params.userId.toString()){
+        if(!user || user._id.toString() !== req.params.userId.toString() && !user.isAdmin){
           // filter private videos
           videos = videos.filter((video) => video.visibility === 'public')
         }
+        videos = videos.map((video) => {
+          if (!checkMediaAvailability(video.userId, video._id, video.fileType)) return {...video, available : false };
+          return {...video, available : true };
+        })
         res.status(200).json(videos)
     }
     catch (error){
@@ -322,12 +339,13 @@ router.get('/postedBy/:userId', async (req, res) => {
 router.get('/thumb/:videoId', async (req, res) => {
     try
     {
-        console.log(req.params.videoId)
-        const video = await Videos.getVideoById(req.params.videoId)
+        const videoId = req.params.videoId;
+        if (videoId === 'undefined' || videoId === 'null') return res.status(403).json("Bad video ID")
+        // console.log('thumb for:', videoId)
+        const video = await Videos.getVideoById(videoId)
         if(!video) return res.status(404).json("Video not found")
-        console.log(video)
-        const thumbPath = getMediaFilePath(video.userId, video._id, 'png');
-        console.log(thumbPath)
+        const thumbPath = getMediaFilePath(video.userId, videoId, 'png');
+        if(!thumbPath) return res.status(404).json("Thumbnail not found")
         // res.writeHead(200, head);
         fs.access(thumbPath, fs.constants.F_OK, (err) => {
           if (err) {
@@ -356,20 +374,20 @@ router.get('/recommendations', async (req, res) => {
       const {error, user} = await authCheck(req, false);
       console.log(user)
       if(error) return res.status(403).json(error);
+      let videos = []
       if(user){
-        const videos = await Videos.getVideosForTags(user.likedTags, vidsAmount)
+        videos = await Videos.getVideosForTags(user.likedTags, vidsAmount)
         if (videos.length < vidsAmount) {
           const moreVideos = await Videos.getMostViewed(vidsAmount - videos.length, onlyPublic=true)
           videos.push(...moreVideos)
         }
-        console.log(videos)
-        res.status(200).json(videos)
       }else{
         // get most viewed videos
-        const videos = await Videos.getMostViewed(vidsAmount, onlyPublic=false)
-        console.log(videos)
-        res.status(200).json(videos)
+        videos = await Videos.getMostViewed(vidsAmount, onlyPublic=false)
       }
+      const vids = videos.filter((video) => checkMediaAvailability(video.userId, video._id, video.fileType))
+      res.status(200).json(vids)
+      //res.status(200).json(videos)
     }
     catch (error){
         console.log(error)
