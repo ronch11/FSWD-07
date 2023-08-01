@@ -21,14 +21,12 @@ function Auth({onLogIn, isLoggedIn}) {
     }, []);
   
     const handleSignInSuccess = (user) => {
-      alert("Login successful");
       navigate('/Home');
       userUpdatedFunction(user);
       onLogIn(user);
     }
     
     const handleSignUpSuccess = (user) => {
-      alert("Register successful");
       navigate('/Home');
       userUpdatedFunction(user);
       onLogIn(user);

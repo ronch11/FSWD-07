@@ -7,6 +7,7 @@ function Login({ onSuccess, onFail }) {
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
   const [loginSuccess, setLoginSuccess] = useState(false); // New state for login success
+  const [pressed, setPressed] = useState(false); // New state for login success
   const setLoading = useLoadingUpdate();
   const api = useContext(ApiContext);
 
@@ -15,40 +16,55 @@ function Login({ onSuccess, onFail }) {
 
     if (username === '') {
       setLoginError('Please enter a username');
+      setPressed(true);
       return;
     }
 
     if (password === '') {
       setLoginError('Please enter a password');
+      setPressed(true);
       return;
     }
 
     try {
       setLoading(true);
-      const response = await api.post("/users/login", {
+      api.post("/users/login", {
         username: username,
         password: password
-      });
-      setLoading(false);
-      if (response.status === 200) {
-        console.log(response.data);
-        console.log(response);
-        const user = response.data.user;
-        const cookie = response.data.accessToken;
-        localStorage.setItem('access_token', cookie);
-        if (onSuccess) onSuccess(user);
-        setLoginSuccess(true); // Set login success to true
-      } else {
-        setLoginError('Mismatched password');
-        if (onFail) onFail();
+      }).then((response) => {
+        if (response.status === 200) {
+          console.log(response.data);
+          console.log(response);
+          const user = response.data.user;
+          const cookie = response.data.accessToken;
+          localStorage.setItem('access_token', cookie);
+          setLoginError('');
+          setLoginSuccess(true); // Set login success to true
+          setTimeout(() => {
+            if (onSuccess) onSuccess(user);
+          }, 300);
+            
+        } else {
+          setLoginError('Mismatched password');
+          if (onFail) onFail();
+          setLoginSuccess(false); // Set login success to false
+        }
+      }).catch((error) => {
+        console.log(error)
+        setLoginError('Error logging in');
         setLoginSuccess(false); // Set login success to false
-      }
+      }).finally(() => {
+        setPressed(true);
+        setLoading(false);
+      });
+      
     } catch (error) {
       console.log(error);
       setLoginError('Error logging in');
       if (onFail) onFail();
       setLoginSuccess(false); // Set login success to false
     }
+    // Set pressed to true
   };
 
   return (
@@ -75,7 +91,7 @@ function Login({ onSuccess, onFail }) {
         />
       </div>
       {loginError && <div style={{ color: 'red' }}>{loginError}</div>}
-      <button className="btn solid" type="submit" onClick={handleSubmitLogin}>Sign In</button>    
+      <button className="btn solid" style={pressed ? (loginSuccess ? { backgroundColor: 'green' } : { backgroundColor: 'red' }) : {}} type="submit" onClick={handleSubmitLogin}>Sign In</button>    
       </form>
   );
 }
