@@ -134,7 +134,7 @@ form.sign-in-form {
 
 .btn {
     width: 150px;
-    background-color: #ea1212;
+    background-color: #303030;
     border: none;
     outline: none;
     height: 49px;
@@ -148,7 +148,7 @@ form.sign-in-form {
 }
 
 .btn:hover {
-    background-color: #ea1212;
+    background-color: #4e4e4e;
 }
 
 .btn-secsess {
