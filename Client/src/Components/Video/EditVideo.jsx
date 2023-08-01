@@ -53,9 +53,7 @@ function EditVideo() {
         width: '100vw', // Take the full viewport width
         height: '100vh', // Take the full viewport height
         /* Additional background styles can be added here */
-      };
-    
-
+    };
     
 
   return (

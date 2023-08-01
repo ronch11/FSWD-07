@@ -43,11 +43,9 @@ function Home() {
 
 
     <div className= "homeStyle">
-      {
-            videos.map(video => {
+      {videos.length === 0 ? <h3>We currently dont have any videos to recommend, sorry!</h3> : videos.map(video => {
                 return <VideoButton video={video} baseurl={api.defaults.baseURL} />
-            })
-      }
+            })}
     </div>
 </>
 
